@@ -70,6 +70,9 @@ def login_medecin(request):
                   template_name="main/login_medecin.html",
                   context={"login_form": form})
 
+def acceuil_medecin(request):
+    return render(request=request,
+                  template_name="main/acceuil_medecin.html")
 
 def profile(request):
     return render(request=request,
@@ -80,3 +83,5 @@ def logout_request(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("main:homepage")
+
+
