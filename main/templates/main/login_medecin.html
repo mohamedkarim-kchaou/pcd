@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Parallax Template - Materialize</title>
+
+ {% include "main/includes/css.html" %}
+
+</head>
+<body>
+  <form method="POST">
+        {% csrf_token %}
+        {{login_form.as_p}}
+      <button class="btn" type="submit" onclick="profile"> register </button>
+  </form>
+
+  {% include "main/includes/footer.html" %}
+  {% include "main/includes/js.html" %}
+  </body>
+</html>
