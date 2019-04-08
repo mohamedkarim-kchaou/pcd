@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
 
@@ -11,9 +11,9 @@
 
 </head>
 <body>
-
+<!--
     <nav style="position:fixed;">
-      <div class="nav-wrapper amber accent-4 z-depth-5">
+      <div class="nav-wrapper  teal lighten-4 z-depth-5">
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li class="transparent-text">kkkkkk<br></li>
           <li></li>
@@ -28,8 +28,61 @@
 
       </div>
     </nav>
-    </header>
-    <div id="index-banner" class="parallax-container">
+
+  <nav> </nav>
+
+  <ul id="slide-out" class="sidenav" style="position:fixed;">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="{% static 'main/images/back2.jpg' %}">
+      </div>
+      <a href="#user"><img class="circle" src="{% static 'main/images/medecin.png' %}"></a>
+      <a href="#name"><span class="white-text name">John Doe</span></a>
+      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>-->
+
+  <div class="slider">
+    <ul class="slides">
+
+      <li>
+        <img src="{% static 'main/images/background3.jpg' %}"> <!-- random image -->
+        <div class="caption row center">
+          <br><br><br><br><br>
+          <a href="qui-etes-vous" id="download-button" class="animated flash delay-1s btn-large waves-effect waves-light teal lighten-1 z-depth-5">Get Started</a>
+        </div>
+
+      </li>
+      <li>
+        <img src="{% static 'main/images/back2.jpg' %}"> <!-- random image -->
+        <div class="caption row center">
+          <br><br><br><br><br>
+          <a href="qui-etes-vous" id="download-button" class="animated flash delay-1s btn-large waves-effect waves-light teal lighten-1 z-depth-5">Get Started</a>
+        </div>
+      </li>
+      <li>
+        <img src="{% static 'main/images/carousel3.jpg' %}"> <!-- random image -->
+        <div class="caption row center">
+          <br><br><br><br><br>
+          <a href="qui-etes-vous" id="download-button" class="animated flash delay-1s btn-large waves-effect waves-light teal lighten-1 z-depth-5">Get Started</a>
+        </div>
+      </li>
+      <li>
+        <img src="{% static 'main/images/c5.jpg' %}"> <!-- random image -->
+        <div class="caption row center">
+          <br><br><br><br><br>
+          <a href="qui-etes-vous" id="download-button" class="animated flash delay-1s btn-large waves-effect waves-light teal lighten-1 z-depth-5">Get Started</a>
+        </div>
+      </li>
+    </ul></div>
+
+    <!--<div id="index-banner" class="parallax-container">
       <div class="section no-pad-bot">
         <div class="container">
         <br><br>
@@ -38,7 +91,7 @@
              <h5 class="animated slideInDown header col s12 light">A modern responsive front-end framework based on Material Design</h5>
            </div>
         <div class="row center">
-          <a href="register" id="download-button" class="animated flash delay-1s btn-large waves-effect waves-light teal lighten-1 z-depth-5">Get Started</a>
+          <a href="qui-etes-vous" id="download-button" class="animated flash delay-1s btn-large waves-effect waves-light teal lighten-1 z-depth-5">Get Started</a>
         </div>
         <br><br>
         </div>
@@ -49,7 +102,7 @@
     </div>
 
   <div class="container">
-    <div class="section">
+    <div class="section">-->
 
       <!--   Icon Section   -->
       <div class="row">
@@ -123,8 +176,19 @@
   </div>
 
 
-
     {% include "main/includes/js.html" %}
     {% include "main/includes/footer.html" %}
+    <script>
+      $(document).ready(function(){
+      $('.sidenav').sidenav();
+      });
+    </script>
+    <script>
+      $(document).ready(function(){
+    $('.slider').slider();
+  });
+
+
+    </script>
 </body>
 </html>

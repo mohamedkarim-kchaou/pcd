@@ -1,0 +1,14 @@
+{% load static %}
+<ul>
+	{% for patient in patients %}
+	<h1>patient.user.username</h1>
+	<li>patient.user.first_name</li>
+	<li>patient.user.last_name</li>
+	<li>patient.user.email</li>
+	{% empty %}
+	Vous n'avez pas encore de patients,
+	Ajoutez en dès maintenant!
+	{% endfor %}
+	<a href="lire_fichier">{{ f }} ici</a>
+	{{ user.username }}
+</ul>

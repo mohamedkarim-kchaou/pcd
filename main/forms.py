@@ -18,7 +18,7 @@ class FormUser(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'email', 'first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'username', 'password', 'email')
         widgets = {
             'password': forms.PasswordInput()
         }
@@ -27,6 +27,17 @@ class FormUser(forms.ModelForm):
 class FormMedecin(forms.ModelForm):
     class Meta:
         model = Medecin
-        fields = ('sexe',)
+        fields = ('date_de_naissance', 'genre')
+        widget = {
+            'genre': forms.Select,
+        }
+    date_de_naissance = forms.DateField(
+            widget=forms.DateInput(attrs={'class': 'datepicker'}, format='%b %d, %Y'),
+            input_formats=('%b %d, %Y',)
+    )
 
 
+class FormMedecinCsv(forms.ModelForm):
+    class Meta:
+        model = Medecin
+        fields = ('csv_file',)

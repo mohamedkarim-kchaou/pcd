@@ -10,8 +10,11 @@
 
 </head>
 <body background="{% static 'main/images/back.jpg' %}">
-  {% include "main/includes/cards.html" %}
-  {% include "main/includes/footer.html" %}
-  {% include "main/includes/js.html" %}
+  {% for line in contenu %}
+      {% for i in line %}
+      {{ i }}
+      {% endfor %}
+  <br>
+  {% endfor %}
 </body>
 </html>

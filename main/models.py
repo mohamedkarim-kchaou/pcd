@@ -1,22 +1,24 @@
 from django.contrib.auth.models import User
 from django.db import models
-import datetime
 
 from django.db.models import CASCADE
-from django.utils.translation import gettext as _
-
-
-class Medecin(models.Model):
-    user = models.OneToOneField(User, on_delete=CASCADE)
-    sexe = models.BooleanField(default=0, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.user)
 
 
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=CASCADE)
     sexe = models.BooleanField(default=0)
+
+    def __str__(self):
+        return str(self.user)
+
+
+class Medecin(models.Model):
+    user = models.OneToOneField(User, on_delete=CASCADE)
+    CHOIXGENRE = (('HOMME', 'HOMME'), ('FEMME', 'FEMME'))
+    genre = models.CharField(max_length=10, choices=CHOIXGENRE, default='HOMME',)
+    csv_file = models.FileField(null=True, blank=True, upload_to='main/static/main/csv/')
+    date_de_naissance = models.DateField(null=True, blank=True)
+    patients = models.ManyToManyField(Patient, related_name="medecins")
 
     def __str__(self):
         return str(self.user)

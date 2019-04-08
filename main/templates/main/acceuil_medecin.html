@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ user.username }}</title>
+	{% include "main/includes/css.html" %}
+</head>
+<body>
+	{% include "main/includes/liste_patients.html" %}
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+    	{{ form.as_p }}
+    	<button type="submit">Upload</button>
+		<input type="file" accept=".csv" />
+    </form>
+	<button><a href="/logout">logout</a></button>
+
+	{% include "main/includes/footer.html" %}
+  	{% include "main/includes/js.html" %}
+</body>
+</html>
