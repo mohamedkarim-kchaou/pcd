@@ -11,7 +11,7 @@ class FormUser(forms.ModelForm):
     }
     password2 = forms.CharField(
         label=_("Password confirmation"),
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         strip=False,
         help_text=_("Enter the same password as before, for verification."),
     )
@@ -20,7 +20,8 @@ class FormUser(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'username', 'password', 'email')
         widgets = {
-            'password': forms.PasswordInput()
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'})
         }
 
 
@@ -36,8 +37,20 @@ class FormMedecin(forms.ModelForm):
             input_formats=('%b %d, %Y',)
     )
 
-
+"""
 class FormMedecinCsv(forms.ModelForm):
     class Meta:
         model = Medecin
-        fields = ('csv_file',)
+        fields = ('csv_file',)"""
+
+
+class FormMedecinPhoto(forms.ModelForm):
+    class Meta:
+        model = Medecin
+        fields = ('photo',)
+
+
+class FormAnnee(forms.Form):
+    annee = forms.ChoiceField(choices=[('09-10', '09-10'), ('10-11', '10-11'), ('11-12', '11-12'), ('12-13', '12-13'),
+                                       ('14-15', '14-15'), ('15-16', '15-16'), ('16-17', '16-17'), ('17-18', '17-18')])
+

@@ -4,11 +4,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-import csv,os
-
-
-from main.models import Medecin
-from .forms import FormMedecin, FormUser, FormMedecinCsv
+import csv
+import ntpath
+import os
+from main.models import Medecin, Patient
+from .forms import FormMedecin, FormUser, FormMedecinPhoto, FormAnnee
+from .functions import afficher_annees_precedentes
+from django.conf import settings
 
 
 # Create your views here.
@@ -24,20 +26,18 @@ def register(request):
 
 def inscription_medecin(request):
     if request.method == "POST":
-        print("hey")
         form_user = FormUser(request.POST)
         form_medecin = FormMedecin(request.POST)
         if form_user.is_valid():
-            print("hey")
             instance = form_user.instance
-            user = User(username=instance.username, password=make_password(instance.password))
+            user = User(username=instance.username, password=make_password(instance.password), email=instance.email,
+                        first_name=instance.first_name, last_name=instance.last_name)
             user.save()
-            login(request, user)
             if form_medecin.is_valid():
-                print("hey")
                 medecin = form_medecin.instance
                 medecin.user = user
                 medecin.save()
+                login(request, user)
             return redirect("main:acceuil_medecin")
 
         else:
@@ -82,22 +82,74 @@ def login_medecin(request):
 
 
 def acceuil_medecin(request):
-    form_medecin_csv = FormMedecinCsv(request.POST, request.FILES)
+    medecin = Medecin.objects.get(user=request.user)
+    liste = []
+    """verification = []
+    for element in os.listdir(settings.STATIC_URL + 'main/images/resultats_annees_precedentes' + '/09-10'):
+        verification.append(element)"""
     if request.method == 'POST':
-        if form_medecin_csv.is_valid():
-            medecin = Medecin.objects.get(user=request.user)
+        form_annee = FormAnnee(request.POST)
+        annee = form_annee['annee'].value()
+        csv = "flu"+annee
+        afficher_annees_precedentes(settings.MEDIA_URL+'csv/'+csv+'.csv', annee)
+        for element in os.listdir(settings.STATIC_URL+'main/images/resultats_annees_precedentes/'+annee):
+            liste.append('main/images/resultats_annees_precedentes/'+annee+'/'+element)
+        return render(request,
+                      "main/acceuil_medecin.html",
+                      {"medecin": medecin,
+                       "form_annee": form_annee,
+                       "liste": liste})
+    #form_medecin_csv = FormMedecinCsv(request.POST, request.FILES)
+    """form_medecin_photo = FormMedecinPhoto(request.POST, request.FILES)
+    if request.method == 'POST':
+        """"""if form_medecin_csv.is_valid():
             csv_file = form_medecin_csv.cleaned_data.get('csv_file')
             medecin.csv_file = csv_file
+            medecin.save()""""""
+        if form_medecin_photo.is_valid():
+            photo = form_medecin_photo.cleaned_data.get('photo')
+            medecin.photo = photo
             medecin.save()
-            return redirect("main:acceuil_medecin")
+        return redirect("main:acceuil_medecin")"""
+    form_annee = FormAnnee
     return render(request,
                   "main/acceuil_medecin.html",
-                  {"patients": request.user.medecin.patients.all(), "form": form_medecin_csv})
+                  {"medecin": medecin,
+                   "liste": liste,
+                   "form_annee": form_annee})
+                   #"csv_file_name": csv_file_name,
+                   #"form_medecin_csv": form_medecin_csv,
+                   #"form_medecin_photo": form_medecin_photo})
 
 
 def profile(request):
     return render(request=request,
                   template_name="main/profile.html")
+
+
+def liste_des_patients(request):
+    return render(request=request,
+                  template_name="main/listes_des_patients.html",
+                  context={"patients": request.user.medecin.patients.all(),
+                           "medecin": request.user.medecin})
+
+
+def liste_des_fichiers(request):
+    csv_files = request.user.medecin.csv_files.all()
+    liste = []
+    if csv_files:
+        for fichier in csv_files:
+            nom_fichier = fichier.csv_file.name.split('/')
+            liste.append(nom_fichier[-1])
+    else:
+        csv_file_name = "You haven't uploaded any csv files yet."
+    for i in liste:
+        print(i)
+    return render(request=request,
+                  template_name="main/listes_des_fichiers.html",
+                  context={"fichiers": request.user.medecin.csv_files.all(),
+                           "medecin": request.user.medecin,
+                           "liste_fichiers": liste})
 
 
 def logout_request(request):
@@ -106,14 +158,13 @@ def logout_request(request):
     return redirect("main:homepage")
 
 
-def lire_fichier(request):
-    fichier = request.user.medecin.csv_file
-    f = os.path.basename(fichier.name)
+def affichage_fichier(request, id):
+    fichier = request.user.medecin.csv_files.all()[id].csv_file
     regions = [[]]
-    with open(str(fichier)) as csvfile:
+    with open(fichier.url, 'r') as csvfile:
         contenu = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in contenu:
-            regions.append(f)
+            regions.append(row)
     return render(request=request,
-                  template_name="main/lire_fichier.html",
+                  template_name="main/affichage_fichier.html",
                   context={"contenu": regions})

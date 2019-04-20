@@ -28,5 +28,7 @@ urlpatterns = [
     path("acceuil", views.acceuil_medecin, name="acceuil_medecin"),
     path("profile", views.profile, name="profile"),
     path("logout", views.logout_request, name="logout"),
-    path("lire_fichier", views.lire_fichier, name="lire_fichier"),
-]
+    path("affichage_fichier/<int:id>", views.affichage_fichier, name="affichage_fichier"),
+    path("mes_patients", views.liste_des_patients, name="liste_des_patients"),
+    path("mes_fichiers", views.liste_des_fichiers, name="liste_des_fichiers"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

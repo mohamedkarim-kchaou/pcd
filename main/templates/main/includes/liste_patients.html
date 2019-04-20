@@ -1,14 +1,24 @@
 {% load static %}
-<ul>
-	{% for patient in patients %}
-	<h1>patient.user.username</h1>
-	<li>patient.user.first_name</li>
-	<li>patient.user.last_name</li>
-	<li>patient.user.email</li>
-	{% empty %}
-	Vous n'avez pas encore de patients,
-	Ajoutez en dès maintenant!
-	{% endfor %}
-	<a href="lire_fichier">{{ f }} ici</a>
-	{{ user.username }}
-</ul>
+
+
+<div class="row">
+	<div class="col s8 offset-s2">
+		<ul class="collection">
+			{% for patient in patients %}
+			<li class="collection-item avatar">
+				<img alt="" class="circle" src="{{ medecin.photo.url }}">
+				<span class="title">{{ patient.user.username }}</span>
+				<p>{{ patient.user.first_name }} {{ patient.user.last_name }}<br>
+					{{ patient.user.email }}
+				</p>
+				<a class="secondary-content" href="#!"><i class="material-icons">person</i></a>
+			</li>
+			{% empty %}
+			Vous n'avez pas encore de patients,
+			Ajoutez en dès maintenant!
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+

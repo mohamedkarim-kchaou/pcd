@@ -9,12 +9,35 @@
  {% include "main/includes/css.html" %}
 
 </head>
-<body>
-  <form method="POST">
+<body background="{% static 'main/images/back.jpg' %}">
+  <!--<form method="POST">
         {% csrf_token %}
         {{login_form.as_p}}
       <button class="btn" type="submit"> login </button>
-  </form>
+  </form>-->
+  <div class="row">
+  <div class="col s6 offset-s3">
+      <div class="card center animated fadeIn z-depth-5">
+
+          <img class="center" src="{% static 'main/images/medecin_log.png' %}">
+
+          <div class="card-stacked">
+              <div class="card-content">
+                  <form method="POST">
+                      {% csrf_token %}
+                      <p><label class="active" for="id_username">Username:</label> <input autofocus="" id="id_username"
+                                                                                          name="username"
+                                                                                          required="" type="text"></p>
+                      <p><label class="active" for="id_password">Password:</label> <input id="id_password"
+                                                                                          name="password" required=""
+                                                                                          type="password"></p>
+                      <button class="btn waves-effect waves-light" type="submit"> login</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
 
   {% include "main/includes/footer.html" %}
   {% include "main/includes/js.html" %}

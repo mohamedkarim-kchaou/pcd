@@ -2,6 +2,9 @@
   <dictionary name="KARIM">
     <words>
       <w>acceuil</w>
+      <w>afficher</w>
+      <w>annee</w>
+      <w>annees</w>
       <w>contenu</w>
       <w>csvfile</w>
       <w>endblock</w>
@@ -10,6 +13,7 @@
       <w>medecin</w>
       <w>naissance</w>
       <w>nouveau</w>
+      <w>precedentes</w>
       <w>prenom</w>
       <w>sexe</w>
     </words>

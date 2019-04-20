@@ -5,18 +5,50 @@
 	<meta charset="UTF-8">
 	<title>{{ user.username }}</title>
 	{% include "main/includes/css.html" %}
+
 </head>
 <body>
-	{% include "main/includes/liste_patients.html" %}
-	<form method="post" enctype="multipart/form-data">
+{% include "main/includes/navbar_medecin.html" %}
+	<form enctype="multipart/form-data" method="post">
 		{% csrf_token %}
-    	{{ form.as_p }}
-    	<button type="submit">Upload</button>
-		<input type="file" accept=".csv" />
-    </form>
-	<button><a href="/logout">logout</a></button>
+		<!--{{ form_medecin_csv.as_p }}-->
+		{{ form_annee.as_p }}
+		<!--<input accept=".csv" type="file"/>-->
+		<button type="submit">Upload</button>
+	</form>
+	{% for e in liste %}
+<div class="row">
+		<div class="col s6 offset-s2">
+			<img class="materialboxed" src="{% static e %}">
+		</div>
 
+</div>
+	{% endfor %}
+
+
+
+		<!--<div class="col s12 m3"><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<a class="btn-large waves-effect waves-light teal lighten-1 z-depth-5 lightbox-close"
+			   id="download-button">Visualiser l'image</a>
+		</div>-->
 	{% include "main/includes/footer.html" %}
-  	{% include "main/includes/js.html" %}
+	{% include "main/includes/js.html" %}
+<script>
+	$(document).ready(function(){
+    $('.sidenav').sidenav();
+      });
+</script>
+<script>
+	$(document).ready(function(){
+    $('.modal').modal();
+    $('.materialboxed').materialbox();
+      });
+</script>
+<script>
+    $(document).ready(function(){
+      $('select').formSelect();
+    });
+  </script>
+
 </body>
 </html>
