@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ user.username }}</title>
+	{% include "main/includes/css.html" %}
+
+</head>
+<body>
+{% include "main/includes/navbar_medecin.html" %}<br>
+<h4 class="center purple-text darken-1">
+	Veuillez choisir une saison et une catégorie pour pouvoir consulter les données d'une telle année
+</h4>
+
+<div class="row">
+	<div class="col s6 offset-s3">
+		<form enctype="multipart/form-data" method="post">
+			{% csrf_token %}
+
+			<p>
+				<label for="id_annee"></label>
+			<div class="select-wrapper">
+				<select id="id_annee" name="annee" tabindex="-1">
+					<option disabled selected="" value="">Année</option>
+					<option value="09-10">09-10</option>
+
+					<option value="10-11">10-11</option>
+
+					<option value="11-12">11-12</option>
+
+					<option value="12-13">12-13</option>
+
+					<option value="14-15">14-15</option>
+
+					<option value="15-16">15-16</option>
+
+					<option value="16-17">16-17</option>
+
+
+				</select>
+			</div>
+			</p>
+			<p><label for="id_categorie"></label>
+			<div class="select-wrapper">
+
+				<select id="id_categorie" name="categorie" tabindex="-1">
+					<option disabled selected="" value="">Catégorie</option>
+					<option value="Nombre total des cas">Nombre total des cas</option>
+
+					<option value="Nombre total des cas de grippe par tranches d'âge">Nombre total des cas de grippe par tranches d'âge
+					</option>
+					<option value="Nombre total des cas SARI par tranches d'âge">Nombre total des cas SARI par tranches d'âge
+					</option>
+
+					<option value="Le pourcentage des cas de grippe et SARI">Le pourcentage des cas de grippe et SARI
+					</option>
+
+				</select></div>
+			</p>
+			<br><br>
+			<!--<input accept=".csv" type="file"/>-->
+			<div class="center">
+
+				<button class="btn waves-effect waves-light" onclick="$('#progress_container').show();" type="submit">
+					Afficher
+				</button>
+
+			</div>
+		</form>
+	</div>
+</div>
+<div class="hero-content center" id='progress_container'>
+	<br>
+	<div class="preloader-wrapper big active">
+		<div class="spinner-layer spinner-blue">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+
+		<div class="spinner-layer spinner-red">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+
+		<div class="spinner-layer spinner-yellow">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+
+		<div class="spinner-layer spinner-green">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+	</div>
+	<br>Veuillez patienter un petit instant..
+</div>
+<br><br> <br>
+{% if liste %}
+<!-- Modal Trigger -->
+<div class="row">
+	<div class="col offset-s4">
+		<a class="waves-effect waves-light btn modal-trigger" href="#liste_regions">Liste des régions épidémiologiques
+			de cette
+			année</a>
+	</div>
+</div>
+<!-- Modal Structure -->
+
+<div class="modal" id="liste_regions">
+	<div class="modal-content">
+		<h4>Les regions qu'avaient une année épidémiologique sont</h4>
+		<p>
+			{% for e in liste_regions %}
+			{{ e }}<br>
+			{% endfor %}
+		</p>
+
+	</div>
+	<div class="modal-footer">
+		<a class="modal-close waves-effect waves-green btn-flat" href="#!">OK</a>
+	</div>
+</div>
+{% endif %}
+{% if option1 %}
+{% for e in liste1 %}
+<div class="row">
+	<div class="col s4 card">
+		<img width="450" height="350" class="materialboxed" src="{% static e %}">
+	</div>
+
+	{% endfor %}</div>{% endif %}
+
+{% if option2 %}
+{% for e in liste2 %}
+<div class="row">
+	<div class="col s4 card">
+		<img width="450" height="350" class="materialboxed" src="{% static e %}">
+	</div>
+
+	{% endfor %}</div>{% endif %}
+
+{% if option3 %}
+{% for e in liste3 %}
+<div class="row">
+	<div class="col s4 card">
+		<img width="450" height="350" class="materialboxed" src="{% static e %}">
+	</div>
+
+	{% endfor %}</div>{% endif %}
+
+{% if option4 %}
+{% for e in liste4 %}
+<div class="row">
+	<div class="col s6 card">
+		<img width="675" height="500" class="materialboxed" src="{% static e %}">
+	</div>
+
+	{% endfor %}</div>{% endif %}
+
+
+
+
+{% include "main/includes/footer.html" %}
+{% include "main/includes/js.html" %}
+<script>
+	$(document).ready(function(){
+    $('.sidenav').sidenav();
+      });
+	$(document).ready(function(){
+    $('.modal').modal();
+    $('.materialboxed').materialbox();
+      });
+    $(document).ready(function(){
+      $('select').formSelect();
+      $('.fixed-action-btn').floatingActionButton();
+    });
+	document.getElementById("progress_container").style.display = 'none';
+
+
+</script>
+
+</body>
+</html>

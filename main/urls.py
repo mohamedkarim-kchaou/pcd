@@ -31,4 +31,6 @@ urlpatterns = [
     path("affichage_fichier/<int:id>", views.affichage_fichier, name="affichage_fichier"),
     path("mes_patients", views.liste_des_patients, name="liste_des_patients"),
     path("mes_fichiers", views.liste_des_fichiers, name="liste_des_fichiers"),
+    path("predictions", views.predictions, name="predictions"),
+    path("stats", views.stats, name="stats"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

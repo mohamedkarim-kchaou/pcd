@@ -9,46 +9,47 @@
 </head>
 <body>
 {% include "main/includes/navbar_medecin.html" %}
-	<form enctype="multipart/form-data" method="post">
-		{% csrf_token %}
-		<!--{{ form_medecin_csv.as_p }}-->
-		{{ form_annee.as_p }}
-		<!--<input accept=".csv" type="file"/>-->
-		<button type="submit">Upload</button>
-	</form>
-	{% for e in liste %}
-<div class="row">
-		<div class="col s6 offset-s2">
-			<img class="materialboxed" src="{% static e %}">
-		</div>
+<h1 class="center purple-text darken-1">
+	Bienvenue {{ genre }} {{ medecin.first_name }} {{ medecin.last_name }}
+</h1>
+{% include "main/includes/cards_acceuil_medecin.html" %}
 
+
+	<!--<input accept=".csv" type="file"/>-->
+
+
+
+
+<div class="fixed-action-btn">
+	<a class="btn-floating btn-large purple darken-1">
+		<i class="large material-icons">add</i>
+	</a>
+	<ul>
+		<li><a href="ajout_patient" class="btn-floating tooltipped lime accent-2" data-position="left" data-tooltip="Ajouter un patient"><i class="material-icons">person</i></a></li>
+		<li><a href="ajout_fichier" class="btn-floating tooltipped red accent-4" data-position="left" data-tooltip="Ajouter un fichier"><i class="material-icons">attach_file</i></a></li>
+	</ul>
 </div>
-	{% endfor %}
 
-
-
-		<!--<div class="col s12 m3"><br><br><br><br><br><br><br><br><br><br><br><br><br>
-			<a class="btn-large waves-effect waves-light teal lighten-1 z-depth-5 lightbox-close"
-			   id="download-button">Visualiser l'image</a>
-		</div>-->
-	{% include "main/includes/footer.html" %}
-	{% include "main/includes/js.html" %}
+{% include "main/includes/footer.html" %}
+{% include "main/includes/js.html" %}
 <script>
 	$(document).ready(function(){
     $('.sidenav').sidenav();
       });
-</script>
-<script>
+    $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  	});
 	$(document).ready(function(){
     $('.modal').modal();
     $('.materialboxed').materialbox();
       });
-</script>
-<script>
     $(document).ready(function(){
       $('select').formSelect();
+      $('.fixed-action-btn').floatingActionButton();
     });
-  </script>
+
+
+</script>
 
 </body>
 </html>

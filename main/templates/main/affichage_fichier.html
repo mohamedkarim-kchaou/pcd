@@ -2,20 +2,59 @@
 {% load static %}
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Parallax Template - Materialize</title>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+	<title>Parallax Template - Materialize</title>
 
- {% include "main/includes/css.html" %}
+	{% include "main/includes/css.html" %}
 
 </head>
 <body background="{% static 'main/images/back.jpg' %}">
+<table>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Item Name</th>
+		<th>Item Price</th>
+	</tr>
+	</thead>
 
-  {% for line in contenu %}
-      {% for i in line %}
-      {{ i }}
-      {% endfor %}
-  <br>
-  {% endfor %}
+	<tbody>
+	<tr>
+		<td>Alvin</td>
+		<td>Eclair</td>
+		<td>$0.87</td>
+	</tr>
+	<tr>
+		<td>Alan</td>
+		<td>Jellybean</td>
+		<td>$3.76</td>
+	</tr>
+	<tr>
+		<td>Jonathan</td>
+		<td>Lollipop</td>
+		<td>$7.00</td>
+	</tr>
+	</tbody>
+</table>
+{% for line in contenu %}
+	{% if forloop.counter0 %}
+	<thead>
+	<tr>
+		{% for i in line %}
+		<td>{{ i }}</td>
+		{% endfor %}
+	</tr>
+	</thead>
+	{% else %}
+	<thead>
+	<tr>
+		{% for i in line %}
+		<th>{{ i }}</th>
+		{% endfor %}
+	</tr>
+	</thead>
+{% endif %}
+{% endfor %}
 </body>
 </html>

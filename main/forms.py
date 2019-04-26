@@ -53,4 +53,29 @@ class FormMedecinPhoto(forms.ModelForm):
 class FormAnnee(forms.Form):
     annee = forms.ChoiceField(choices=[('09-10', '09-10'), ('10-11', '10-11'), ('11-12', '11-12'), ('12-13', '12-13'),
                                        ('14-15', '14-15'), ('15-16', '15-16'), ('16-17', '16-17'), ('17-18', '17-18')])
+    categorie = forms.ChoiceField(choices=[('Nombre total des cas', 'Nombre total des cas'),
+                                           ("Nombre total des cas de grippe par tranches d'âge",
+                                            "Nombre total des cas de grippe par tranches d'âge"),
+                                           ("Nombre total des cas SARI par tranches d'âge",
+                                            "Nombre total des cas SARI par tranches d'âge"),
+                                           ("Le pourcentage des cas de grippe et SARI",
+                                            "Le pourcentage des cas de grippe et SARI")])
+
+
+class FormPrediction(forms.Form):
+    """algorithme = forms.ChoiceField(choices=[('lstm1', 'lstm1'), ('lstm4', 'lstm4'),
+                                            ('machine learning', 'machine learning'),
+                                            ('reseaux des neurones', 'reseaux des neurones')])"""
+
+
+class FormRegion(forms.Form):
+    region = forms.ChoiceField(choices=[('Tunis', 'Tunis'), ('Ariana', 'Ariana'), ('Mannouba', 'Mannouba'),
+                                        ('Ben Arous', 'Ben Arous'), ('Bizerte', 'Bizerte'), ('Nabeul', 'Nabeul'),
+                                        ('Zaghouan', 'Zaghouan'), ('Beja', 'Beja'), ('Jendouba', 'Jendouba'),
+                                        ('Le Kef', 'Le Kef'), ('Siliana', 'Siliana'), ('Kairouan', 'Kairouan'),
+                                        ('Sousse', 'Sousse'), ('Mahdia', 'Mahdia'), ('Monastir', 'Monastir'),
+                                        ('Kasserine', 'Kasserine'), ('Sfax', 'Sfax'), ('Gabes', 'Gabes'),
+                                        ('Kebili', 'Kebili'), ('Gafsa', 'Gafsa'), ('Sidi Bouzid', 'Sidi Bouzid'),
+                                        ('Tozeur', 'Tozeur'), ('Medenine', 'Medenine'), ('Tataouin', 'Tataouin')])
+
 
