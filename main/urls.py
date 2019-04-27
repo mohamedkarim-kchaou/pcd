@@ -33,4 +33,6 @@ urlpatterns = [
     path("mes_fichiers", views.liste_des_fichiers, name="liste_des_fichiers"),
     path("predictions", views.predictions, name="predictions"),
     path("stats", views.stats, name="stats"),
+    path("ajout_fichier", views.ajout_fichier, name="ajout_fichier"),
+    path("ajout_patient", views.ajout_patient, name="ajout_patient"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

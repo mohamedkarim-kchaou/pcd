@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
-from main.models import Medecin
+from main.models import Medecin, FichierCsv, Patient, Partenaire
 
 
 class FormUser(forms.ModelForm):
@@ -28,7 +28,7 @@ class FormUser(forms.ModelForm):
 class FormMedecin(forms.ModelForm):
     class Meta:
         model = Medecin
-        fields = ('date_de_naissance', 'genre')
+        fields = ('date_de_naissance', 'genre', 'region')
         widget = {
             'genre': forms.Select,
         }
@@ -78,4 +78,33 @@ class FormRegion(forms.Form):
                                         ('Kebili', 'Kebili'), ('Gafsa', 'Gafsa'), ('Sidi Bouzid', 'Sidi Bouzid'),
                                         ('Tozeur', 'Tozeur'), ('Medenine', 'Medenine'), ('Tataouin', 'Tataouin')])
 
+
+class FormCsv(forms.ModelForm):
+    class Meta:
+        model = FichierCsv
+        fields = ('csv_file',)
+
+
+class FormCsvCreation(forms.Form):
+    """region = forms.ChoiceField(choices=[('Tunis', 'Tunis'), ('Ariana', 'Ariana'), ('Mannouba', 'Mannouba'),
+                                    ('Ben Arous', 'Ben Arous'), ('Bizerte', 'Bizerte'), ('Nabeul', 'Nabeul'),
+                                    ('Zaghouan', 'Zaghouan'), ('Beja', 'Beja'), ('Jendouba', 'Jendouba'),
+                                    ('Le Kef', 'Le Kef'), ('Siliana', 'Siliana'), ('Kairouan', 'Kairouan'),
+                                    ('Sousse', 'Sousse'), ('Mahdia', 'Mahdia'), ('Monastir', 'Monastir'),
+                                    ('Kasserine', 'Kasserine'), ('Sfax', 'Sfax'), ('Gabes', 'Gabes'),
+                                    ('Kebili', 'Kebili'), ('Gafsa', 'Gafsa'), ('Sidi Bouzid', 'Sidi Bouzid'),
+                                    ('Tozeur', 'Tozeur'), ('Medenine', 'Medenine'), ('Tataouin', 'Tataouin')])
+    mois = forms.ChoiceField(choices=[('january', 'Janvier'), ('february', 'Fevrier'), ('march', 'Mars'),
+                                      ('april', 'Avril'), ('may', 'Mai'), ('june', 'Juin'),
+                                      ('july', 'Juillet'), ('august', 'Août'), ('september', 'Septembre'),
+                                      ('october', 'Octobre'), ('november', 'Novembre'), ('december', 'Decembre')])"""
+    grippe_enfant = forms.IntegerField(initial=0)
+    sari_enfant = forms.IntegerField(initial=0)
+    consultation_enfant = forms.IntegerField(initial=0)
+    grippe_adolescent = forms.IntegerField(initial=0)
+    sari_adolescent = forms.IntegerField(initial=0)
+    consultation_adolescent = forms.IntegerField(initial=0)
+    grippe_mur = forms.IntegerField(initial=0)
+    sari_mur = forms.IntegerField(initial=0)
+    consultation_mur = forms.IntegerField(initial=0)
 

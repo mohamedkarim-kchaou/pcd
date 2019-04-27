@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ user.username }}</title>
+	{% include "main/includes/css.html" %}
+
+</head>
+<body>
+{% include "main/includes/navbar_medecin.html" %}<br><br><br>
+<div class="row center">
+	<h4 class="purple-text darken-1">
+		Veuillez insérer les données que vous possédez à travers la saisie manuelle <br>ou à travers un fichier csv prêt
+		<br>
+	</h4>
+</div>
+<br>
+
+<div class="row">
+	<div class="col s12">
+		<div class="col s8  z-depth-5 card">
+			<form enctype="multipart/form-data" method="post">
+				{% csrf_token %}
+				<!--<div class="row">
+					<div class="col s6 offset-s3">
+
+
+						<p><label for="id_region">Region:</label>
+						<div class="select-wrapper">
+							<select id="id_region" name="region" tabindex="-1">
+								<option disabled selected="" value="">Selectionnez votre région</option>
+								<option value="Tunis">Tunis</option>
+
+								<option value="Ariana">Ariana</option>
+
+								<option value="Mannouba">Mannouba</option>
+
+								<option value="Ben Arous">Ben Arous</option>
+
+								<option value="Bizerte">Bizerte</option>
+
+								<option value="Nabeul">Nabeul</option>
+
+								<option value="Zaghouan">Zaghouan</option>
+
+								<option value="Beja">Beja</option>
+
+								<option value="Jendouba">Jendouba</option>
+
+								<option value="Le Kef">Le Kef</option>
+
+								<option value="Siliana">Siliana</option>
+
+								<option value="Kairouan">Kairouan</option>
+
+								<option value="Sousse">Sousse</option>
+
+								<option value="Mahdia">Mahdia</option>
+
+								<option value="Monastir">Monastir</option>
+
+								<option value="Kasserine">Kasserine</option>
+
+								<option value="Sfax">Sfax</option>
+
+								<option value="Gabes">Gabes</option>
+
+								<option value="Kebili">Kebili</option>
+
+								<option value="Gafsa">Gafsa</option>
+
+								<option value="Sidi Bouzid">Sidi Bouzid</option>
+
+								<option value="Tozeur">Tozeur</option>
+
+								<option value="Medenine">Medenine</option>
+
+								<option value="Tataouin">Tataouin</option>
+
+							</select></div>
+						</p>
+					</div>
+
+
+
+				</div>-->
+				<div class="row">
+					<div class="col s4">
+						<p><label for="id_grippe_enfant">Nombre de cas de grippe pour les bébés:</label>
+							<input id="id_grippe_enfant" name="grippe_enfant" value="0" required="" step="any" type="number">
+						</p>
+					</div>
+					<div class="col s4">
+						<p><label for="id_sari_enfant">Nombre de cas SARI pour les bébés:</label>
+							<input id="id_sari_enfant" name="sari_enfant" required="" value="0" step="any" type="number">
+						</p></div>
+					<div class="col s4">
+						<p><label for="id_consultation_enfant">Nombre de consultations pour les bébés:</label>
+							<input id="id_consultation_enfant" name="consultation_enfant" value="0" required="" step="any"
+								   type="number">
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s4">
+						<p><label for="id_grippe_adolescent">Nombre de cas de grippe pour les enfants:</label>
+							<input id="id_grippe_adolescent" name="grippe_adolescent" required="" value="0" step="any"
+								   type="number">
+						</p></div>
+					<div class="col s4">
+						<p><label for="id_sari_adolescent">Nombre de cas SARI pour les enfants:</label>
+							<input id="id_sari_adolescent" value="0" name="sari_adolescent" required="" step="any"
+								   type="number">
+						</p></div>
+					<div class="col s4">
+						<p><label for="id_consultation_adolescent">Nombre de consultations pour les enfants:</label>
+							<input id="id_consultation_adolescent" value="0" name="consultation_adolescent" required=""
+								   step="any"
+								   type="number">
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s4">
+						<p><label for="id_grippe_mur">Nombre de cas de grippe pour les murs:</label>
+							<input id="id_grippe_mur" name="grippe_mur" value="0" required="" step="any"
+								   type="number">
+						</p></div>
+					<div class="col s4">
+						<p><label for="id_sari_mur">Nombre de cas SARI pour les murs:</label>
+							<input id="id_sari_mur" name="sari_mur" required="" value="0" step="any" type="number">
+						</p></div>
+					<div class="col s4">
+						<p><label for="id_consultation_mur">Nombre de consultations pour les murs:</label>
+							<input id="id_consultation_mur" name="consultation_mur" value="0" required="" step="any"
+								   type="number">
+						</p></div>
+				</div>
+
+
+				<!--<input accept=".csv" type="file"/>--><br>
+				<div class="center">
+					<button class="btn waves-effect waves-light" id="button" name="button"
+							onclick="$('#progress_container').show();" type="submit" value="enter">Prédire
+					</button>
+					<div class="hero-content center" id='progress_container'>
+						<br>
+						<div class="preloader-wrapper big active">
+							<div class="spinner-layer spinner-blue">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+
+							<div class="spinner-layer spinner-red">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+
+							<div class="spinner-layer spinner-yellow">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+
+							<div class="spinner-layer spinner-green">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+						</div>
+						<br>Veuillez patienter un petit instant..
+					</div>
+				</div>
+			</form>
+		</div><br><br><br>
+		<div class="col s4  z-depth-5 card">
+			<br><br>
+			<div class="center">
+				<img height="200" src="{% static 'main/images/attach.png' %}" width="200">
+				<br><br>
+				<span class="card-title purple-text darken-2"><strong>Si vous avez dèja un fichier csv prêt <br>cliquez ici</strong></span>
+				<br><br><br>
+				<a class="waves-effect waves-light btn-large" href="login_medecin"><i
+						class="material-icons">touch_app</i></a><br><br><br>
+			</div>
+
+		</div>
+	</div>
+
+	<!--<div id="national">{{ form_prediction.as_p }}</div>
+	<div id="regional">{{ form_region.as_p }}</div>-->
+
+
+</div>
+
+
+{% include "main/includes/footer.html" %}
+{% include "main/includes/js.html" %}
+<script>
+	$(document).ready(function(){
+    $('.sidenav').sidenav();
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+	$(document).ready(function(){
+    $('.modal').modal();
+    $('.materialboxed').materialbox();
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+    $(document).ready(function(){
+      $('select').formSelect();
+    });
+	document.getElementById("progress_container").style.display = 'none';
+
+	function toggleLiveData(checkbox) {
+
+                if (checkbox.checked) {
+
+//$("#progress_container").show();
+                document.getElementById("fichier").style.display = 'block';
+                document.getElementById("creation").style.display = 'none';
+
+                } else {
+
+                  //  $("#progress_container").hide();
+      document.getElementById("fichier").style.display = 'none';
+      document.getElementById("creation").style.display = 'block';
+                }
+
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
