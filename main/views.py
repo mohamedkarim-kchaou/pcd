@@ -32,7 +32,7 @@ def inscription_medecin(request):
         if form_user.is_valid():
             instance = form_user.instance
             user = User(username=instance.username, password=make_password(instance.password), email=instance.email,
-                        first_name=instance.first_name, last_name=instance.last_name, region=instance.region)
+                        first_name=instance.first_name, last_name=instance.last_name)
             user.save()
             if form_medecin.is_valid():
                 medecin = form_medecin.instance
