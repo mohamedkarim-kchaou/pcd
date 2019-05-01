@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42047e44-1c83-4b4f-b44b-716e71bb8bb9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/static/main/images/liste_patients.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/affichage_fichier.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/affichage_fichier.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/ajout_fichier.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/ajout_fichier.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/ajout_patient.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/ajout_patient.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/includes/cards.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/includes/cards.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/inscription_medecin.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/inscription_medecin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/listes_des_patients.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/listes_des_patients.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/predections.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/predections.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="42047e44-1c83-4b4f-b44b-716e71bb8bb9" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -368,7 +352,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="-8" width="1299" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.50236964" side_tool="true" weight="0.2371134" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49763033" visible="true" weight="0.2371134" />
