@@ -17,7 +17,9 @@
 		<ul class="collection">
 			{% for patient in patients %}
 			<li class="collection-item avatar">
-				<img alt="" class="circle" src="{{ medecin.photo.url }}">
+				<a href="affichage_patient/{{ forloop.counter0 }}">
+				<img alt="" class="circle" src="{{ patient.photo.url }}">
+				</a>
 				<span class="title">{{ patient.user.username }}</span>
 				<p>{{ patient.user.first_name }} {{ patient.user.last_name }}<br>
 					{{ patient.user.email }}

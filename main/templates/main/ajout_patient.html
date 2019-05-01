@@ -7,184 +7,469 @@
 	{% include "main/includes/css.html" %}
 
 </head>
-<body>
-{% include "main/includes/navbar_medecin.html" %}<br>
-<h4 class="center purple-text darken-1">
-	Veuillez choisir une saison et une catégorie pour pouvoir consulter les données d'une telle année
-</h4>
-
+<body background="{% static 'main/images/back.jpg' %}">
+{% include "main/includes/navbar_medecin.html" %}
 <div class="row">
-	<div class="col s6 offset-s3">
-		<form enctype="multipart/form-data" method="post">
-			{% csrf_token %}
+	<div class="col s12">
 
-			<p>
-				<label for="id_annee"></label>
-			<div class="select-wrapper">
-				<select id="id_annee" name="annee" tabindex="-1">
-					<option disabled selected="" value="">Année</option>
-					<option value="09-10">09-10</option>
+		<div class="card horizontal animated fadeIn waves-effect waves-light z-depth-5">
+			<div class="card-content col s12">
+				<form method="POST">
+					{% csrf_token %}
+					<!--<p>
+					<div class="input-field col s6"><i class="material-icons prefix">account_circle</i><label
+							for="id_first_name">First name:</label> <input id="id_first_name" maxlength="30"
+																		   name="first_name"
+																		   type="text"></div>
+					</p>
+					<p>
+					<div class="input-field col s6"><i class="material-icons prefix">account_circle</i><label
+							for="id_last_name">Last name:</label> <input id="id_last_name" maxlength="150"
+																		 name="last_name"
+																		 type="text"></div>
+					</p>
+					<p>
+					<div class="input-field col s12"><label class="active" for="id_username">Username:</label><input
+							id="id_username" maxlength="150" name="username" required="" type="text"><br><span
+							class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+					</div>
+					</p>
+					<p>
+					<div class="input-field col s4"><label class="" for="id_date_de_naissance">Date de
+						naissance:</label>
+						<div class="modal datepicker-modal" id="modal-bd809cfb-08a9-ca46-a9c5-8b7f9f9bd0bc"
+							 style="z-index: 1003; display: none; opacity: 0; top: 4%; transform: scaleX(0.8) scaleY(0.8);"
+							 tabindex="0">
+							<div class="modal-content datepicker-container">
+								<div class="datepicker-date-display"><span class="year-text">2019</span><span
+										class="date-text">Mon, Apr 8</span>
+								</div>
+								<div class="datepicker-calendar-container">
+									<div class="datepicker-calendar">
+										<div aria-live="assertive" class="datepicker-controls" id="datepicker-title-dh"
+											 role="heading">
+											<button class="month-prev" type="button">
+												<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24"
+													 xmlns="http://www.w3.org/2000/svg">
+													<path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"></path>
+													<path d="M0-.5h24v24H0z" fill="none"></path>
+												</svg>
+											</button>
+											<div class="selects-container">
+												<div class="select-wrapper select-month"><input
+														class="select-dropdown dropdown-trigger"
+														data-target="select-options-b956c414-b599-ca9e-bbc5-a71ab2533600"
+														readonly="true"
+														type="text">
+													<svg class="caret" height="24" viewBox="0 0 24 24" width="24"
+														 xmlns="http://www.w3.org/2000/svg">
+														<path d="M7 10l5 5 5-5z"></path>
+														<path d="M0 0h24v24H0z" fill="none"></path>
+													</svg>
+													<select class="datepicker-select orig-select-month" tabindex="-1">
+														<option value="0">January</option>
+														<option value="1">February</option>
+														<option value="2">March</option>
+														<option selected="selected" value="3">April</option>
+														<option value="4">May</option>
+														<option value="5">June</option>
+														<option value="6">July</option>
+														<option value="7">August</option>
+														<option value="8">September</option>
+														<option value="9">October</option>
+														<option value="10">November</option>
+														<option value="11">December</option>
+													</select></div>
+												<div class="select-wrapper select-year"><input
+														class="select-dropdown dropdown-trigger"
+														data-target="select-options-1a359681-9845-a21d-f17d-b3ad82b6b9d4"
+														readonly="true"
+														type="text">
+													<svg class="caret" height="24" viewBox="0 0 24 24" width="24"
+														 xmlns="http://www.w3.org/2000/svg">
+														<path d="M7 10l5 5 5-5z"></path>
+														<path d="M0 0h24v24H0z" fill="none"></path>
+													</svg>
+													<select class="datepicker-select orig-select-year" tabindex="-1">
+														<option value="2009">2009</option>
+														<option value="2010">2010</option>
+														<option value="2011">2011</option>
+														<option value="2012">2012</option>
+														<option value="2013">2013</option>
+														<option value="2014">2014</option>
+														<option value="2015">2015</option>
+														<option value="2016">2016</option>
+														<option value="2017">2017</option>
+														<option value="2018">2018</option>
+														<option selected="selected" value="2019">2019</option>
+														<option value="2020">2020</option>
+														<option value="2021">2021</option>
+														<option value="2022">2022</option>
+														<option value="2023">2023</option>
+														<option value="2024">2024</option>
+														<option value="2025">2025</option>
+														<option value="2026">2026</option>
+														<option value="2027">2027</option>
+														<option value="2028">2028</option>
+														<option value="2029">2029</option>
+													</select></div>
+											</div>
+											<button class="month-next" type="button">
+												<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24"
+													 xmlns="http://www.w3.org/2000/svg">
+													<path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"></path>
+													<path d="M0-.25h24v24H0z" fill="none"></path>
+												</svg>
+											</button>
+										</div>
+										<div class="datepicker-table-wrapper">
+											<table aria-labelledby="datepicker-title-dh" cellpadding="0" cellspacing="0"
+												   class="datepicker-table"
+												   role="grid">
+												<thead>
+												<tr>
+													<th scope="col"><abbr title="Sunday">S</abbr></th>
+													<th scope="col"><abbr title="Monday">M</abbr></th>
+													<th scope="col"><abbr title="Tuesday">T</abbr></th>
+													<th scope="col"><abbr title="Wednesday">W</abbr></th>
+													<th scope="col"><abbr title="Thursday">T</abbr></th>
+													<th scope="col"><abbr title="Friday">F</abbr></th>
+													<th scope="col"><abbr title="Saturday">S</abbr></th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr class="datepicker-row">
+													<td class="is-empty"></td>
+													<td aria-selected="false" class="" data-day="1">
+														<button class="datepicker-day-button" data-day="1"
+																data-month="3" data-year="2019"
+																type="button">1
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="2">
+														<button class="datepicker-day-button" data-day="2"
+																data-month="3" data-year="2019"
+																type="button">2
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="3">
+														<button class="datepicker-day-button" data-day="3"
+																data-month="3" data-year="2019"
+																type="button">3
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="4">
+														<button class="datepicker-day-button" data-day="4"
+																data-month="3" data-year="2019"
+																type="button">4
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="5">
+														<button class="datepicker-day-button" data-day="5"
+																data-month="3" data-year="2019"
+																type="button">5
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="6">
+														<button class="datepicker-day-button" data-day="6"
+																data-month="3" data-year="2019"
+																type="button">6
+														</button>
+													</td>
+												</tr>
+												<tr class="datepicker-row">
+													<td aria-selected="false" class="" data-day="7">
+														<button class="datepicker-day-button" data-day="7"
+																data-month="3" data-year="2019"
+																type="button">7
+														</button>
+													</td>
+													<td aria-selected="false" class="is-today" data-day="8">
+														<button class="datepicker-day-button" data-day="8"
+																data-month="3" data-year="2019"
+																type="button">8
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="9">
+														<button class="datepicker-day-button" data-day="9"
+																data-month="3" data-year="2019"
+																type="button">9
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="10">
+														<button class="datepicker-day-button" data-day="10"
+																data-month="3" data-year="2019"
+																type="button">10
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="11">
+														<button class="datepicker-day-button" data-day="11"
+																data-month="3" data-year="2019"
+																type="button">11
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="12">
+														<button class="datepicker-day-button" data-day="12"
+																data-month="3" data-year="2019"
+																type="button">12
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="13">
+														<button class="datepicker-day-button" data-day="13"
+																data-month="3" data-year="2019"
+																type="button">13
+														</button>
+													</td>
+												</tr>
+												<tr class="datepicker-row">
+													<td aria-selected="false" class="" data-day="14">
+														<button class="datepicker-day-button" data-day="14"
+																data-month="3" data-year="2019"
+																type="button">14
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="15">
+														<button class="datepicker-day-button" data-day="15"
+																data-month="3" data-year="2019"
+																type="button">15
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="16">
+														<button class="datepicker-day-button" data-day="16"
+																data-month="3" data-year="2019"
+																type="button">16
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="17">
+														<button class="datepicker-day-button" data-day="17"
+																data-month="3" data-year="2019"
+																type="button">17
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="18">
+														<button class="datepicker-day-button" data-day="18"
+																data-month="3" data-year="2019"
+																type="button">18
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="19">
+														<button class="datepicker-day-button" data-day="19"
+																data-month="3" data-year="2019"
+																type="button">19
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="20">
+														<button class="datepicker-day-button" data-day="20"
+																data-month="3" data-year="2019"
+																type="button">20
+														</button>
+													</td>
+												</tr>
+												<tr class="datepicker-row">
+													<td aria-selected="false" class="" data-day="21">
+														<button class="datepicker-day-button" data-day="21"
+																data-month="3" data-year="2019"
+																type="button">21
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="22">
+														<button class="datepicker-day-button" data-day="22"
+																data-month="3" data-year="2019"
+																type="button">22
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="23">
+														<button class="datepicker-day-button" data-day="23"
+																data-month="3" data-year="2019"
+																type="button">23
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="24">
+														<button class="datepicker-day-button" data-day="24"
+																data-month="3" data-year="2019"
+																type="button">24
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="25">
+														<button class="datepicker-day-button" data-day="25"
+																data-month="3" data-year="2019"
+																type="button">25
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="26">
+														<button class="datepicker-day-button" data-day="26"
+																data-month="3" data-year="2019"
+																type="button">26
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="27">
+														<button class="datepicker-day-button" data-day="27"
+																data-month="3" data-year="2019"
+																type="button">27
+														</button>
+													</td>
+												</tr>
+												<tr class="datepicker-row">
+													<td aria-selected="false" class="" data-day="28">
+														<button class="datepicker-day-button" data-day="28"
+																data-month="3" data-year="2019"
+																type="button">28
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="29">
+														<button class="datepicker-day-button" data-day="29"
+																data-month="3" data-year="2019"
+																type="button">29
+														</button>
+													</td>
+													<td aria-selected="false" class="" data-day="30">
+														<button class="datepicker-day-button" data-day="30"
+																data-month="3" data-year="2019"
+																type="button">30
+														</button>
+													</td>
+													<td class="is-empty"></td>
+													<td class="is-empty"></td>
+													<td class="is-empty"></td>
+													<td class="is-empty"></td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="datepicker-footer">
+										<button class="btn-flat datepicker-clear waves-effect"
+												style="visibility: hidden;"
+												type="button"></button>
+										<div class="confirmation-btns">
+											<button class="btn-flat datepicker-cancel waves-effect" type="button">
+												Cancel
+											</button>
+											<button class="btn-flat datepicker-done waves-effect" type="button">Ok
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input class="datepicker" id="id_date_de_naissance" name="date_de_naissance" required=""
+							   type="text">
+					</div>
+					</p>
+					<p>
+					<div class="input-field col s4"><label for="id_genre"></label>
+						<div class="select-wrapper"><select id="id_genre" name="genre" tabindex="-1">
+							<option disabled selected="" value="">Selectionnez votre genre</option>
+							<option value="HOMME">HOMME</option>
 
-					<option value="10-11">10-11</option>
+							<option value="FEMME">FEMME</option>
 
-					<option value="11-12">11-12</option>
+						</select></div>
+					</div>
+					</p>
+					<p>
+					<div class="input-field col s4"><label for="id_region"></label>
+						<div class="select-wrapper"><select id="id_region" name="region" tabindex="-1">
+							<option disabled selected="" value="">Selectionnez votre région</option>
+							<option value="Tunis">Tunis</option>
 
-					<option value="12-13">12-13</option>
+							<option value="Ariana">Ariana</option>
 
-					<option value="14-15">14-15</option>
+							<option value="Mannouba">Mannouba</option>
 
-					<option value="15-16">15-16</option>
+							<option value="Ben Arous">Ben Arous</option>
 
-					<option value="16-17">16-17</option>
+							<option value="Bizerte">Bizerte</option>
 
+							<option value="Nabeul">Nabeul</option>
 
-				</select>
+							<option value="Zaghouan">Zaghouan</option>
+
+							<option value="Beja">Beja</option>
+
+							<option value="Jendouba">Jendouba</option>
+
+							<option value="Le Kef">Le Kef</option>
+
+							<option value="Siliana">Siliana</option>
+
+							<option value="Kairouan">Kairouan</option>
+
+							<option value="Sousse">Sousse</option>
+
+							<option value="Mahdia">Mahdia</option>
+
+							<option value="Monastir">Monastir</option>
+
+							<option value="Kasserine">Kasserine</option>
+
+							<option value="Sfax">Sfax</option>
+
+							<option value="Gabes">Gabes</option>
+
+							<option value="Kebili">Kebili</option>
+
+							<option value="Gafsa">Gafsa</option>
+
+							<option value="Sidi Bouzid">Sidi Bouzid</option>
+
+							<option value="Tozeur">Tozeur</option>
+
+							<option value="Medenine">Medenine</option>
+
+							<option value="Tataouin">Tataouin</option>
+
+						</select></div>
+					</div>
+					</p>
+					<p>
+					<div class="input-field col s12"><label for="id_email">Email address:</label> <input
+							class="form-control"
+							id="id_email"
+							maxlength="254"
+							name="email"
+							type="email"></div>
+					</p>
+					<p>
+					<div class="input-field col s12"><label class="active" for="id_password">Password:</label> <input
+							id="id_password" maxlength="128" name="password" required="" type="password"></div>
+					</p>
+					<p>
+					<div class="input-field col s12"><label for="id_password2">Password confirmation:</label> <input
+							id="id_password2" name="password2" required="" type="password"> <span class="helptext">Enter the same password as before, for verification.</span>
+					</div>
+					</p>-->
+            {{ form_user }}
+            {{ form_patient }}
+					<div class="center">
+						<button class="btn waves-effect waves-light" type="submit"> enregistrer <i
+								class="material-icons right">send</i></button>
+					</div>
+				</form>
 			</div>
-			</p>
-			<p><label for="id_categorie"></label>
-			<div class="select-wrapper">
+        <div class="col s12 m5">
+          <div class="card center animated fadeIn waves-effect waves-light z-depth-5">
 
-				<select id="id_categorie" name="categorie" tabindex="-1">
-					<option disabled selected="" value="">Catégorie</option>
-					<option value="Nombre total des cas">Nombre total des cas</option>
+            <img class="center" height="450" src="{% static 'main/images/patient.png' %}">
 
-					<option value="Nombre total des cas de grippe par tranches d'âge">Nombre total des cas de grippe par tranches d'âge
-					</option>
-					<option value="Nombre total des cas SARI par tranches d'âge">Nombre total des cas SARI par tranches d'âge
-					</option>
+            <div class="card-stacked">
+              <div class="card-content">
+                <span class="card-title purple-text darken-2"><strong>Si le patient posséde dèja un compte cliquez içi</strong></span>
 
-					<option value="Le pourcentage des cas de grippe et SARI">Le pourcentage des cas de grippe et SARI
-					</option>
+                <a class="waves-effect waves-light btn-large" href="ajout_patient_existant"><i
+                        class="material-icons">touch_app</i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+		</div>
 
-				</select></div>
-			</p>
-			<br><br>
-			<!--<input accept=".csv" type="file"/>-->
-			<div class="center">
-
-				<button class="btn waves-effect waves-light" onclick="$('#progress_container').show();" type="submit">
-					Afficher
-				</button>
-
-			</div>
-		</form>
 	</div>
 </div>
-<div class="hero-content center" id='progress_container'>
-	<br>
-	<div class="preloader-wrapper big active">
-		<div class="spinner-layer spinner-blue">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div>
-			<div class="gap-patch">
-				<div class="circle"></div>
-			</div>
-			<div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
 
-		<div class="spinner-layer spinner-red">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div>
-			<div class="gap-patch">
-				<div class="circle"></div>
-			</div>
-			<div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
 
-		<div class="spinner-layer spinner-yellow">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div>
-			<div class="gap-patch">
-				<div class="circle"></div>
-			</div>
-			<div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
-
-		<div class="spinner-layer spinner-green">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div>
-			<div class="gap-patch">
-				<div class="circle"></div>
-			</div>
-			<div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
-	</div>
-	<br>Veuillez patienter un petit instant..
-</div>
 <br><br> <br>
-{% if liste %}
-<!-- Modal Trigger -->
-<div class="row">
-	<div class="col offset-s4">
-		<a class="waves-effect waves-light btn modal-trigger" href="#liste_regions">Liste des régions épidémiologiques
-			de cette
-			année</a>
-	</div>
-</div>
-<!-- Modal Structure -->
 
-<div class="modal" id="liste_regions">
-	<div class="modal-content">
-		<h4>Les regions qu'avaient une année épidémiologique sont</h4>
-		<p>
-			{% for e in liste_regions %}
-			{{ e }}<br>
-			{% endfor %}
-		</p>
-
-	</div>
-	<div class="modal-footer">
-		<a class="modal-close waves-effect waves-green btn-flat" href="#!">OK</a>
-	</div>
-</div>
-{% endif %}
-{% if option1 %}
-{% for e in liste1 %}
-<div class="row">
-	<div class="col s4 card">
-		<img width="450" height="350" class="materialboxed" src="{% static e %}">
-	</div>
-
-	{% endfor %}</div>{% endif %}
-
-{% if option2 %}
-{% for e in liste2 %}
-<div class="row">
-	<div class="col s4 card">
-		<img width="450" height="350" class="materialboxed" src="{% static e %}">
-	</div>
-
-	{% endfor %}</div>{% endif %}
-
-{% if option3 %}
-{% for e in liste3 %}
-<div class="row">
-	<div class="col s4 card">
-		<img width="450" height="350" class="materialboxed" src="{% static e %}">
-	</div>
-
-	{% endfor %}</div>{% endif %}
-
-{% if option4 %}
-{% for e in liste4 %}
-<div class="row">
-	<div class="col s6 card">
-		<img width="675" height="500" class="materialboxed" src="{% static e %}">
-	</div>
-
-	{% endfor %}</div>{% endif %}
 
 
 
@@ -207,6 +492,13 @@
 
 
 </script>
+<script>
+      $(document).ready(function(){
+        $('.datepicker').datepicker({
+          format:'mmm dd, yyyy'
+          });
+      });
 
+</script>
 </body>
 </html>

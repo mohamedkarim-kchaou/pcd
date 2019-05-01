@@ -9,52 +9,77 @@
 	{% include "main/includes/css.html" %}
 
 </head>
-<body background="{% static 'main/images/back.jpg' %}">
+<body background="{% static 'main/images/back100.jpg' %}">
+<!--
 <table>
 	<thead>
 	<tr>
-		<th>Name</th>
-		<th>Item Name</th>
-		<th>Item Price</th>
-	</tr>
-	</thead>
 
+		<th>Région</th>
+		<th>Nombre de cas de grippe pour les bébés</th>
+		<th>Nombre de cas SARI pour les bébés</th>
+		<th>Nombre de consultations pour les bébés</th>
+		<th>Nombre de cas de grippe pour les enfants</th>
+		<th>Nombre de cas SARI pour les enfants</th>
+		<th>Nombre de consultations pour les enfant</th>
+		<th>Nombre de cas de grippe pour les murs</th>
+		<th>Nombre de cas SARI pour les murs</th>
+		<th>Nombre de consultations pour les murs</th>
+		<th>Total des cas de grippe</th>
+		<th>Total des cas SARI</th>
+		<th>Total des consultations</th>
+		<th>Numeros de semaine</th>
+		<th>Mois</th>
+		<th>Année</th>
+		<th>Taux des cas de grippe</th>
+		<th>Taux des cas SARI</th>
+
+	</tr>
+	</thead>
 	<tbody>
+	{% for ligne in lignes %}
 	<tr>
-		<td>Alvin</td>
-		<td>Eclair</td>
-		<td>$0.87</td>
+		{% for mot in ligne %}
+		<td>{{ mot }}</td>
+		{% endfor %}
 	</tr>
-	<tr>
-		<td>Alan</td>
-		<td>Jellybean</td>
-		<td>$3.76</td>
-	</tr>
-	<tr>
-		<td>Jonathan</td>
-		<td>Lollipop</td>
-		<td>$7.00</td>
-	</tr>
+	{% endfor %}
 	</tbody>
-</table>
-{% for line in contenu %}
-	{% if forloop.counter0 %}
+	</table>-->
+<table>
 	<thead>
 	<tr>
-		{% for i in line %}
-		<td>{{ i }}</td>
-		{% endfor %}
+
+		<th>Région</th>
+		<th>Grippe bébés</th>
+		<th>SARI bébés</th>
+		<th>consultations bébés</th>
+		<th>Grippe enfants</th>
+		<th>SARI enfants</th>
+		<th>Consultations enfants</th>
+		<th>Grippe murs</th>
+		<th>SARI murs</th>
+		<th>Consultations murs</th>
+		<th>Total grippe</th>
+		<th>Total SARI</th>
+		<th>Total des consultations</th>
+		<th>n° semaine</th>
+		<th>Mois</th>
+		<th>Année</th>
+		<th>Taux grippe</th>
+		<th>Taux SARI</th>
+
 	</tr>
 	</thead>
-	{% else %}
-	<thead>
+	<tbody>
+	{% for ligne in lignes %}
 	<tr>
-		{% for i in line %}
-		<th>{{ i }}</th>
+		{% for mot in ligne %}
+		<td>{{ mot }}</td>
 		{% endfor %}
 	</tr>
-	</thead>
-{% endif %}
-{% endfor %}
+	{% endfor %}
+	</tbody>
+	</table>
 </body>
 </html>

@@ -11,114 +11,21 @@
 {% include "main/includes/navbar_medecin.html" %}<br><br><br>
 <div class="row center">
 <h4 class="purple-text darken-1">
-	Veuillez choisir le formulaire désiré pour choisir<br> l'échelle nationale ou régionale<br><br>
+	Veuillez  le fichier csv prêt<br><br>
 </h4>
 	</div>
 <br>
-<div class="row center">
-<div class="switch">
-	<label>
-		Regional
-		<input checked="checked" onclick="toggleLiveData(this)" type="checkbox">
-		<span class="lever"></span>
-		National
-	</label>
-</div>
-</div>
-<div class="row center">
-<div class="switch">
-	<label>
-		Annuel
-		<input checked="checked" onclick="toggleLiveData(this)" type="checkbox">
-		<span class="lever"></span>
-		Mensuel
-	</label>
-</div>
-</div>
+
 <div class="row">
-<div class="col s6 offset-s3">
+<div class="col s6 offset-s3 center">
 <form enctype="multipart/form-data" method="post">
 	{% csrf_token %}
-	<div id="national">
-		<!--<p>
-			<label for="id_algorithme">Algorithme:</label>
-		<div class="select-wrapper">
 
-			<select id="id_algorithme" name="algorithme" tabindex="-1">
-				<option disabled selected="" value="">Selectionnez un algorithme à faire tourner</option>
-				<option value="lstm1">lstm1</option>
-
-				<option value="lstm4">lstm4</option>
-
-				<option value="machine learning">machine learning</option>
-
-				<option value="reseaux des neurones">reseaux des neurones</option>
-
-			</select>
-		</div>
-		</p>-->
-	</div>
-	<div id="regional">
-		<p>
-			<label for="id_region">Region:</label>
-		<div class="select-wrapper">
-			<select id="id_region" name="region" tabindex="-1">
-				<option disabled selected="" value="">Selectionnez une région</option>
-				<option value="Tunis">Tunis</option>
-
-				<option value="Ariana">Ariana</option>
-
-				<option value="Mannouba">Mannouba</option>
-
-				<option value="Ben Arous">Ben Arous</option>
-
-				<option value="Bizerte">Bizerte</option>
-
-				<option value="Nabeul">Nabeul</option>
-
-				<option value="Zaghouan">Zaghouan</option>
-
-				<option value="Beja">Beja</option>
-
-				<option value="Jendouba">Jendouba</option>
-
-				<option value="Le Kef">Le Kef</option>
-
-				<option value="Siliana">Siliana</option>
-
-				<option value="Kairouan">Kairouan</option>
-
-				<option value="Sousse">Sousse</option>
-
-				<option value="Mahdia">Mahdia</option>
-
-				<option value="Monastir">Monastir</option>
-
-				<option value="Kasserine">Kasserine</option>
-
-				<option value="Sfax">Sfax</option>
-
-				<option value="Gabes">Gabes</option>
-
-				<option value="Kebili">Kebili</option>
-
-				<option value="Gafsa">Gafsa</option>
-
-				<option value="Sidi Bouzid">Sidi Bouzid</option>
-
-				<option value="Tozeur">Tozeur</option>
-
-				<option value="Medenine">Medenine</option>
-
-				<option value="Tataouin">Tataouin</option>
-
-			</select>
-		</div>
-		</p>
-	</div>
-	<!--<input accept=".csv" type="file"/>--><br><br><br>
+	<label for="id_csv_file">Csv file:</label>
+	<input type="file" name="csv_file" id="id_csv_file">
+	<!--<input accept=".csv" type="file"/>--><br><br><br><br><br>
 	<div class="center">
-	<button class="btn waves-effect waves-light" id="button" name="button" onclick="$('#progress_container').show();" type="submit" value="enter">Prédire
+	<button class="btn waves-effect waves-light" id="button" name="button" onclick="$('#progress_container').show();" type="submit" value="enter">Ajouter
 	</button>
 	</div>
 </form>

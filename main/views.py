@@ -9,9 +9,11 @@ import ntpath
 import datetime
 import os
 from main.models import Medecin, Patient, Partenaire, FichierCsv
-from .forms import FormMedecin, FormUser, FormMedecinPhoto, FormAnnee, FormPrediction, FormRegion, FormCsv, FormCsvCreation
+from .forms import FormMedecin, FormUser, FormMedecinPhoto, FormAnnee, FormPrediction, FormRegion, FormCsv, FormCsvCreation, FormPatient
 from .functions import afficher_annees_precedentes, predire_lstm1, predire_lstm4, predire_machine_learning, predire_reseaux_des_neurones, predire_region
 from django.conf import settings
+from django.shortcuts import get_object_or_404
+
 
 
 # Create your views here.
@@ -29,14 +31,22 @@ def inscription_medecin(request):
     if request.method == "POST":
         form_user = FormUser(request.POST)
         form_medecin = FormMedecin(request.POST)
+        print("hr")
         if form_user.is_valid():
             instance = form_user.instance
-            user = User(username=instance.username, password=make_password(instance.password), email=instance.email,
-                        first_name=instance.first_name, last_name=instance.last_name)
+            """user = User(username=instance.username, password=make_password(instance.password), email=instance.email,
+                        first_name=instance.first_name, last_name=instance.last_name)"""
+            user = request.user
+            user.first_name = instance.first_name
+            user.last_name = instance.last_name
+            user.email = instance.email
             user.save()
+            print("hr")
             if form_medecin.is_valid():
+                print("hr")
                 medecin = form_medecin.instance
                 medecin.user = user
+                medecin.first_connection = 1
                 medecin.save()
                 login(request, user)
             return redirect("main:acceuil_medecin")
@@ -66,7 +76,13 @@ def login_medecin(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
+                try:
+                    medecin = Medecin.objects.get(user=user)
+                except Medecin.DoesNotExist:
+                    return redirect("main:inscription_medecin")
+
                 return redirect("main:acceuil_medecin")
+
             else:
                 print("problem")
                 messages.error(request, "Invalid username or password.")
@@ -152,14 +168,79 @@ def logout_request(request):
 
 def affichage_fichier(request, id):
     fichier = request.user.medecin.csv_files.all()[id].csv_file
-    regions = [[]]
+    lignes = [[]]
     with open(fichier.url, 'r') as csvfile:
         contenu = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in contenu:
-            regions.append(row)
+            lignes.append(row)
+    entree = [[]]
+    ligne = []
+    l1 = [None] * 6
+    l2 = [None] * 3
+    l3 = [None] * 3
+    l4 = [None] * 3
+    l5 = [None] * 2
+    ligne1 = [[]]
+    ligne2 = [[]]
+    ligne3 = [[]]
+    ligne4 = [[]]
+    ligne5 = [[]]
+    """for row in lignes:
+        ligne[0] = row[0]
+        ligne[1] = row[13]
+        ligne[2] = row[14]
+        ligne[3] = row[15]
+        ligne[4] = row[16]
+        ligne[5] = row[17]
+        l1[0] = row[0]
+        l1[1] = row[13]
+        l1[2] = row[14]
+        l1[3] = row[15]
+        l1[4] = row[16]
+        l1[5] = row[17]
+        ligne1.append(l1)
+
+        ligne[6] = row[1]
+        ligne[7] = row[2]
+        ligne[8] = row[3]
+        l2[0] = row[1]
+        l2[1] = row[2]
+        l2[2] = row[3]
+        ligne2.append(l2)
+
+        ligne[9] = row[4]
+        ligne[10] = row[5]
+        ligne[11] = row[6]
+        l3[0] = row[4]
+        l3[1] = row[5]
+        l3[2] = row[6]
+        ligne3.append(l3)
+
+        ligne[12] = row[7]
+        ligne[13] = row[8]
+        ligne[14] = row[9]
+        l4[0] = row[7]
+        l4[1] = row[8]
+        l4[2] = row[9]
+        ligne4.append(l4)
+
+        ligne[15] = row[10]
+        ligne[16] = row[11]
+        ligne[17] = row[12]
+        l5[0] = row[10]
+        l5[1] = row[11]
+        l5[2] = row[12]
+        ligne5.append(l5)
+
+        entree.append(ligne)"""
     return render(request=request,
                   template_name="main/affichage_fichier.html",
-                  context={"contenu": regions})
+                  context={"lignes": lignes,
+                           "ligne1": ligne1,
+                           "ligne2": ligne2,
+                           "ligne3": ligne3,
+                           "ligne4": ligne4,
+                           "ligne5": ligne5})
 
 
 def predictions(request):
@@ -265,7 +346,6 @@ def stats(request):
 
 def ajout_fichier(request):
     medecin = request.user.medecin
-
     form_csv_creation = FormCsvCreation
     if request.method == 'POST':
         form_csv_creation = FormCsvCreation(request.POST)
@@ -322,5 +402,85 @@ def ajout_fichier(request):
                    "form_csv_creation": form_csv_creation})
 
 
-def ajout_patient():
-    return render()
+def ajout_patient(request):
+    medecin = request.user.medecin
+    if request.method == "POST":
+        print("fghj")
+        form_user = FormUser(request.POST)
+        form_patient = FormPatient(request.POST)
+        if form_user.is_valid():
+            print("fghj")
+            instance = form_user.instance
+            user = User(username=instance.username, password=make_password(instance.password), email=instance.email,
+                        first_name=instance.first_name, last_name=instance.last_name)
+            if form_patient.is_valid():
+                print("fghj")
+                user.save()
+                instance_patient = form_patient.instance
+                patient = Patient(date_de_naissance=instance_patient.date_de_naissance,
+                                  genre=instance_patient.genre,
+                                  region=instance_patient.region)
+                patient.user = user
+                patient.save()
+                patient.medecins.add(medecin)
+            return redirect("main:acceuil_medecin")
+    form_user = FormUser  # UserCreationForm
+    form_patient = FormPatient
+    return render(request=request,
+                  template_name="main/ajout_patient.html",
+                  context={"form_user": form_user,
+                           "form_patient": form_patient,
+                           "medecin": medecin})
+
+
+def ajout_csv(request):
+    medecin = Medecin.objects.get(user=request.user)
+    form_csv = FormCsv
+    if request.method == 'POST':
+        form_csv = FormCsv(request.POST, request.FILES)
+        if form_csv.is_valid():
+            fichier = form_csv.instance
+            fichier.medecin = medecin
+            fichier.csv_file = fichier.csv_file
+            fichier.save()
+            return redirect("main:homepage")
+    return render(request,
+                  "main/ajout_csv.html",
+                  {"form_csv": form_csv,
+                   "medecin": medecin})
+
+
+def ajout_patient_existant(request):
+    medecin = request.user.medecin
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            patient = user.patient
+            if user is not None:
+                patient.medecins.add(medecin)
+                return redirect("main:acceuil_medecin")
+            else:
+                print("problem")
+                messages.error(request, "Invalid username or password.")
+        else:
+            print("error")
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            print(username, password)
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request=request,
+                  template_name="main/ajout_patient_existant.html",
+                  context={"login_form": form,
+                           "medecin": medecin})
+
+
+def affichage_patient(request, id):
+    patient = request.user.medecin.patients.all()[id]
+
+    return render(request=request,
+                  template_name="main/affichage_patient.html",
+                  context={"patient": patient})

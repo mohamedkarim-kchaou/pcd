@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+	<title>Parallax Template - Materialize</title>
+
+	{% include "main/includes/css.html" %}
+
+</head>
+<body>
+<img alt="" class="circle" src="{{ patient.photo.url }}">
+{{ patient.user.username }}
+{{ patient.user.first_name }}
+
+
+</body>
+</html>
