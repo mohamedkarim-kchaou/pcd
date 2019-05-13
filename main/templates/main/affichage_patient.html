@@ -10,10 +10,108 @@
 
 </head>
 <body>
-<img alt="" class="circle" src="{{ patient.photo.url }}">
-{{ patient.user.username }}
-{{ patient.user.first_name }}
+{% include "main/includes/navbar_medecin.html" %}
+
+<div class="parallax-container valign-wrapper">
+	<div class="section no-pad-bot">
+		<div class="container">
+			<div class="row center">
+				<figure class="card-profile-image">
+					<img alt="profile image" class="circle z-depth-2 responsive-img activator" height="128" src="{{ patient.photo.url }}"
+						 width="128">
+				</figure>
+			</div>
+		</div>
+	</div>
+	<div class="parallax"><img alt="Unsplashed background img 2" src="{% static 'main/images/back_home4.jpg' %}"></div>
+
+</div>
+<div class="row">
+	<div class="col s4">
+		<div class="card animated fadeIn waves-effect waves-light z-depth-5" style="animation-delay:0.25s;">
+			<h5 class="white-text">mmmmmmmmmmmmmmmmmmml</h5>
+
+			<div class="card-content">
+				<span class="card-title purple-text darken-2"><strong>{{ patient.user.first_name }}
+					{{ patient.user.last_name }}</strong></span><br>
+				<p class="purple-text">{{ patient.date_de_naissance }}</p>
+				<p class="purple-text">{{ patient.genre }}</p>
+				<p class="purple-text">{{ patient.region }}</p>
+				<p class="purple-text">{{ patient.user.email }}</p>
+				{% for consultation in consultations %}
+
+				<p>{{ consultation.date }}</p>
+
+					{% endfor %}
+			</div>
 
 
+		</div>
+	</div>
+
+	<div class="col s8" href="#">
+		<div class="card animated fadeIn waves-effect waves-light z-depth-5" style="animation-delay:0.5s;">
+
+			<h5 class="white-text">mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmml</h5>
+			<div class="card-content">
+				<span class="card-title center purple-text darken-2"><strong>Liste de consultations</strong></span><br><br>
+				<ul class="collapsible">
+					{% for consultation in consultations %}
+					<li>
+						<div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+						<div class="collapsible-body"><span>{{ consultation.date }}</span></div>
+					</li>
+					{% endfor %}
+					<li>
+						<div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+						<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+					</li>
+					<li>
+						<div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+						<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<div class="fixed-action-btn">
+	<a class="btn-floating btn-large tooltipped purple darken-1" data-position="left" data-tooltip="Ajouter une consultation"
+	   href="{{ id }}/ajout_consultation">
+		<i class="large material-icons">add</i>
+	</a>
+</div>
+{% include "main/includes/footer.html" %}
+{% include "main/includes/js.html" %}
+<script>
+	$(document).ready(function(){
+    $('.sidenav').sidenav();
+      });
+    $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  	});
+	$(document).ready(function(){
+    $('.modal').modal();
+    $('.materialboxed').materialbox();
+      });
+    $(document).ready(function(){
+      $('select').formSelect();
+      $('.fixed-action-btn').floatingActionButton();
+    });
+	$(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+
+
+</script>
+<script>
+      $(document).ready(function(){
+    $('.slider').slider();
+    $('.parallax').parallax();
+  });
+
+</script>
 </body>
 </html>

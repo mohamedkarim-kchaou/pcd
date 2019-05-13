@@ -16,7 +16,7 @@
 			<div class="card-content col s12">
 				<form method="POST">
 					{% csrf_token %}
-					<!--<p>
+					<p>
 					<div class="input-field col s6"><i class="material-icons prefix">account_circle</i><label
 							for="id_first_name">First name:</label> <input id="id_first_name" maxlength="30"
 																		   name="first_name"
@@ -438,15 +438,17 @@
 					<div class="input-field col s12"><label for="id_password2">Password confirmation:</label> <input
 							id="id_password2" name="password2" required="" type="password"> <span class="helptext">Enter the same password as before, for verification.</span>
 					</div>
-					</p>-->
-            {{ form_user }}
-            {{ form_patient }}
+					</p>
+           <!-- {{ form_user }}
+            {{ form_patient }}-->
+
 					<div class="center">
 						<button class="btn waves-effect waves-light" type="submit"> enregistrer <i
 								class="material-icons right">send</i></button>
 					</div>
 				</form>
 			</div>
+
         <div class="col s12 m5">
           <div class="card center animated fadeIn waves-effect waves-light z-depth-5">
 

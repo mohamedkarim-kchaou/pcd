@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ user.username }}</title>
+	{% include "main/includes/css.html" %}
+
+</head>
+<body>
+{% include "main/includes/navbar_medecin.html" %}<br><br><br>
+<div class="row center">
+	<h4 class="purple-text darken-1">
+		Veuillez insérer les symptomes et le résultat<br><br>
+	</h4>
+</div>
+<br>
+
+<div class="row">
+	<div class="col s6 offset-s3">
+		<form enctype="multipart/form-data" method="post">
+			{% csrf_token %}
+			<label>Symptomes:</label>
+			<div class="row">
+				<div class="col s6">
+					<p>
+						<label>
+							<input name="display_type1" type="checkbox" value="fievre"/>
+							<span>Fièvre</span>
+						</label>
+					</p>
+					<p>
+						<label>
+							<input name="display_type2" type="checkbox" value="toux"/>
+							<span>Toux</span>
+						</label>
+					</p>
+					<p>
+						<label>
+							<input name="display_type3" type="checkbox" value="maux_de_tête"/>
+							<span>Maux de tête</span>
+						</label>
+					</p>
+					<p>
+						<label>
+							<input name="display_type4" type="checkbox" value="fatigue"/>
+							<span>Fatigue</span>
+						</label>
+					</p>
+				</div>
+				<div class="col s6">
+					<p>
+						<label>
+							<input name="display_type5" type="checkbox" value="douleurs_musculaires"/>
+							<span>Douleurs musculaires</span>
+						</label>
+					</p>
+					<p>
+						<label>
+							<input name="display_type6" type="checkbox" value="ecoulement_nasal"/>
+							<span>Ecoulement nasal</span>
+						</label>
+					</p>
+					<p>
+						<label>
+							<input name="display_type7" type="checkbox" value="congestion_nasale"/>
+							<span>Congestion nasale</span>
+						</label>
+					</p>
+					<p>
+						<label>
+							<input name="display_type8" type="checkbox" value="frissons"/>
+							<span>Frissons</span>
+						</label>
+					</p>
+				</div>
+			</div>
+			<label class="" for="id_resultat">Resultat:</label>
+			<textarea cols="40" id="id_resultat" maxlength="2000" name="resultat" rows="10"></textarea>
+
+			<!--<input accept=".csv" type="file"/>--><br><br><br><br><br>
+			<div class="center">
+				<button class="btn waves-effect waves-light" id="button" name="button"
+						onclick="$('#progress_container').show();" type="submit" value="enter">Ajouter
+				</button>
+			</div>
+		</form>
+
+		<!--<div id="national">{{ form_prediction.as_p }}</div>
+		<div id="regional">{{ form_region.as_p }}</div>-->
+
+
+		<div class="hero-content center" id='progress_container'>
+			<br>
+			<div class="preloader-wrapper big active">
+				<div class="spinner-layer spinner-blue">
+					<div class="circle-clipper left">
+						<div class="circle"></div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle"></div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle"></div>
+					</div>
+				</div>
+
+				<div class="spinner-layer spinner-red">
+					<div class="circle-clipper left">
+						<div class="circle"></div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle"></div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle"></div>
+					</div>
+				</div>
+
+				<div class="spinner-layer spinner-yellow">
+					<div class="circle-clipper left">
+						<div class="circle"></div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle"></div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle"></div>
+					</div>
+				</div>
+
+				<div class="spinner-layer spinner-green">
+					<div class="circle-clipper left">
+						<div class="circle"></div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle"></div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle"></div>
+					</div>
+				</div>
+			</div>
+			<br>Veuillez patienter un petit instant..
+		</div>
+	</div>
+</div>
+{% for e in liste %}
+<div class="row">
+	<div class="col s6 offset-s3">
+		<img class="materialboxed" src="{% static e %}">
+	</div>
+
+</div>
+{% endfor %}
+
+{% for e in erreur %}
+<div class="row">
+	<div class="col s6 offset-s3">
+		{{ e }}
+	</div>
+
+</div>
+{% endfor %}
+<!--{% for e in liste %}
+<div class="row">
+	<div class="col s6 offset-s2">
+		<img class="materialboxed" src="{% static e %}">
+	</div>
+
+</div>
+{% endfor %}
+
+
+<!--<div class="col s12 m3"><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<a class="btn-large waves-effect waves-light teal lighten-1 z-depth-5 lightbox-close"
+	   id="download-button">Visualiser l'image</a>
+</div>-->
+{% include "main/includes/footer.html" %}
+{% include "main/includes/js.html" %}
+<script>
+	$(document).ready(function(){
+    $('.sidenav').sidenav();
+      });
+
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+	$(document).ready(function(){
+    $('.modal').modal();
+    $('.materialboxed').materialbox();
+      });
+
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+    $(document).ready(function(){
+      $('select').formSelect();
+    });
+	document.getElementById("progress_container").style.display = 'none';
+	document.getElementById("regional").style.display = 'none';
+	document.getElementById("national").style.display = 'block';
+	function toggleLiveData(checkbox) {
+
+                if (checkbox.checked) {
+
+//$("#progress_container").show();
+                document.getElementById("national").style.display = 'block';
+                document.getElementById("regional").style.display = 'none';
+
+                } else {
+
+                  //  $("#progress_container").hide();
+      document.getElementById("national").style.display = 'none';
+      document.getElementById("regional").style.display = 'block';
+                }
+
+            };
+
+
+
+
+</script>
+<script>
+	$('.chips').chips();
+
+$('.chips-autocomplete').chips({
+    autocompleteOptions: {
+      data: {
+        'Fièvre': null,
+		'Fatigue': null,
+        'Toux': null
+      },
+      limit: Infinity,
+      minLength: 1
+    }
+  });
+
+
+</script>
+</body>
+</html>

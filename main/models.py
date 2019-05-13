@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import CASCADE
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
+from django_mysql.models import ListCharField
 
 
 class Patient(models.Model):
@@ -60,3 +63,15 @@ class FichierCsv(models.Model):
 
     def __str__(self):
         return str(self.csv_file)
+
+
+class Consultation(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=CASCADE, related_name="consultations")
+    symptomes = ListCharField(base_field=models.CharField(max_length=30))
+    resultat = models.TextField(max_length=2000, null=True, blank=True)
+    date = models.CharField(max_length=2000, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.date)
+
+

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'django_mysql',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,10 @@ STATIC_URL = '/Django/pcd/main/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '/Django/pcd/main/media/')
 MEDIA_URL = '/Django/pcd/main/media/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pcdensi19@gmail.com'
+EMAIL_HOST_PASSWORD = 'pcdensi2019'
+TAGGIT_CASE_INSENSITIVE = True

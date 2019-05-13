@@ -15,30 +15,28 @@
 </h4>
 	</div>
 <br>
-<div class="row center">
-<div class="switch">
-	<label>
-		Regional
-		<input checked="checked" onclick="toggleLiveData(this)" type="checkbox">
-		<span class="lever"></span>
-		National
-	</label>
-</div>
-</div>
-<div class="row center">
-<div class="switch">
-	<label>
-		Annuel
-		<input checked="checked" onclick="toggleLiveData(this)" type="checkbox">
-		<span class="lever"></span>
-		Mensuel
-	</label>
-</div>
-</div>
 <div class="row">
 <div class="col s6 offset-s3">
 <form enctype="multipart/form-data" method="post">
 	{% csrf_token %}
+	<div class="row center">
+	<div class="switch"><p>
+	<label>
+		Regional
+		<input checked="checked" name="display_type" value="natreg" onclick="toggleLiveData(this)" type="checkbox">
+		<span class="lever"></span>
+		National
+	</label></p></div>
+</div>
+	<div class="row center">
+	<div class="switch"><p>
+	<label>
+		Mensuel
+		<input checked="checked" name="display_type2" value="annmen" onclick="toggleLiveData1(this)" type="checkbox">
+		<span class="lever"></span>
+		Annuel
+	</label></p></div>
+</div>
 	<div id="national">
 		<!--<p>
 			<label for="id_algorithme">Algorithme:</label>
@@ -116,6 +114,39 @@
 		</div>
 		</p>
 	</div>
+	<div id="annuel">
+	</div>
+	<div id="mensuel">
+		<p>
+			<label for="id_mois">Mois:</label>
+		<p class="select-wrapper">
+			<select id="id_mois" name="mois" tabindex="-1">
+				<option disabled selected="" value="">Selectionnez un mois</option>
+	<option value="january">Janvier</option>
+
+  <option value="february">Fevrier</option>
+
+  <option value="march">Mars</option>
+
+  <option value="april">Avril</option>
+
+  <option value="may">Mai</option>
+
+  <option value="june">Juin</option>
+
+  <option value="july">Juillet</option>
+
+  <option value="august">Août</option>
+
+  <option value="september">Septembre</option>
+
+  <option value="october">Octobre</option>
+
+  <option value="november">Novembre</option>
+
+  <option value="december">Decembre</option>
+
+			</select></p></div>
 	<!--<input accept=".csv" type="file"/>--><br><br><br>
 	<div class="center">
 	<button class="btn waves-effect waves-light" id="button" name="button" onclick="$('#progress_container').show();" type="submit" value="enter">Prédire
@@ -248,6 +279,8 @@
 	document.getElementById("progress_container").style.display = 'none';
 	document.getElementById("regional").style.display = 'none';
 	document.getElementById("national").style.display = 'block';
+	document.getElementById("mensuel").style.display = 'none';
+	document.getElementById("annuel").style.display = 'block';
 	function toggleLiveData(checkbox) {
 
                 if (checkbox.checked) {
@@ -261,6 +294,22 @@
                   //  $("#progress_container").hide();
       document.getElementById("national").style.display = 'none';
       document.getElementById("regional").style.display = 'block';
+                }
+
+            };
+function toggleLiveData1(checkbox) {
+
+                if (checkbox.checked) {
+
+//$("#progress_container").show();
+                document.getElementById("annuel").style.display = 'block';
+                document.getElementById("mensuel").style.display = 'none';
+
+                } else {
+
+                  //  $("#progress_container").hide();
+      document.getElementById("annuel").style.display = 'none';
+      document.getElementById("mensuel").style.display = 'block';
                 }
 
             };

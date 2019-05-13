@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
+from tags_input import fields
 
-from main.models import Medecin, FichierCsv, Patient, Partenaire
+from main.models import Medecin, FichierCsv, Patient, Partenaire, Consultation
 
 
 class FormUser(forms.ModelForm):
@@ -19,6 +20,26 @@ class FormUser(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            #'password': forms.PasswordInput(attrs={'class': 'form-control'})
+        }
+
+
+class FormUserComplet(forms.ModelForm):
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        strip=False,
+        help_text=_("Enter the same password as before, for verification."),
+    )
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'username', 'password')
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             #'password': forms.PasswordInput(attrs={'class': 'form-control'})
@@ -44,6 +65,7 @@ class FormPatient(forms.ModelForm):
         fields = ('date_de_naissance', 'genre', 'region')
         widget = {
             'genre': forms.Select,
+            'region': forms.Select,
         }
     date_de_naissance = forms.DateField(
             widget=forms.DateInput(attrs={'class': 'datepicker'}, format='%b %d, %Y'),
@@ -92,6 +114,19 @@ class FormRegion(forms.Form):
                                         ('Tozeur', 'Tozeur'), ('Medenine', 'Medenine'), ('Tataouin', 'Tataouin')])
 
 
+class FormPrediction2(forms.Form):
+    algorithme = forms.ChoiceField(choices=[('lstm1', 'lstm1'), ('lstm4', 'lstm4'),
+                                            ('machine learning', 'machine learning'),
+                                            ('reseaux des neurones', 'reseaux des neurones')])
+
+
+class FormMois(forms.Form):
+    mois = forms.ChoiceField(choices=[('january', 'Janvier'), ('february', 'Fevrier'), ('march', 'Mars'),
+                                      ('april', 'Avril'), ('may', 'Mai'), ('june', 'Juin'),
+                                      ('july', 'Juillet'), ('august', 'Août'), ('september', 'Septembre'),
+                                      ('october', 'Octobre'), ('november', 'Novembre'), ('december', 'Decembre')])
+
+
 class FormCsv(forms.ModelForm):
     class Meta:
         model = FichierCsv
@@ -121,3 +156,11 @@ class FormCsvCreation(forms.Form):
     sari_mur = forms.IntegerField(initial=0)
     consultation_mur = forms.IntegerField(initial=0)
 
+
+class FormConsultation(forms.ModelForm):
+    class Meta:
+        model = Consultation
+        fields = ('resultat',)
+        widget = {
+                    'resultat': forms.Textarea,
+                }

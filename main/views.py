@@ -4,16 +4,16 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 import csv
 import ntpath
 import datetime
 import os
 from main.models import Medecin, Patient, Partenaire, FichierCsv
-from .forms import FormMedecin, FormUser, FormMedecinPhoto, FormAnnee, FormPrediction, FormRegion, FormCsv, FormCsvCreation, FormPatient
+from .forms import FormMedecin, FormUser, FormMedecinPhoto, FormAnnee, FormPrediction, FormRegion, FormCsv, FormCsvCreation, FormPatient, FormPrediction2, FormMois, FormUserComplet, FormConsultation
 from .functions import afficher_annees_precedentes, predire_lstm1, predire_lstm4, predire_machine_learning, predire_reseaux_des_neurones, predire_region
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-
 
 
 # Create your views here.
@@ -31,7 +31,6 @@ def inscription_medecin(request):
     if request.method == "POST":
         form_user = FormUser(request.POST)
         form_medecin = FormMedecin(request.POST)
-        print("hr")
         if form_user.is_valid():
             instance = form_user.instance
             """user = User(username=instance.username, password=make_password(instance.password), email=instance.email,
@@ -41,14 +40,17 @@ def inscription_medecin(request):
             user.last_name = instance.last_name
             user.email = instance.email
             user.save()
-            print("hr")
             if form_medecin.is_valid():
-                print("hr")
                 medecin = form_medecin.instance
                 medecin.user = user
                 medecin.first_connection = 1
                 medecin.save()
                 login(request, user)
+                subject = 'Bienvenue'
+                message = "Bonjour cher medecin,"+'\n'+"Vous faites maintenant partie de notre comité élargie qui vise à améliorer la situation de santé dans la Tunisie."+'\n'+"Merci"
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [user.email, ]
+                send_mail(subject, message, email_from, recipient_list)
             return redirect("main:acceuil_medecin")
 
         else:
@@ -167,6 +169,7 @@ def logout_request(request):
 
 
 def affichage_fichier(request, id):
+    medecin = request.user.medecin
     fichier = request.user.medecin.csv_files.all()[id].csv_file
     lignes = [[]]
     with open(fichier.url, 'r') as csvfile:
@@ -235,7 +238,8 @@ def affichage_fichier(request, id):
         entree.append(ligne)"""
     return render(request=request,
                   template_name="main/affichage_fichier.html",
-                  context={"lignes": lignes,
+                  context={"medecin": medecin,
+                           "lignes": lignes,
                            "ligne1": ligne1,
                            "ligne2": ligne2,
                            "ligne3": ligne3,
@@ -248,44 +252,62 @@ def predictions(request):
     liste = []
     erreur = []
     if request.method == 'POST':
-        print("hey1")
         form_prediction = FormPrediction(request.POST)
         form_region = FormRegion(request.POST)
-        if form_prediction.is_valid():
-            print("hey")
-            algorithme = "lstm1"
-            """if algorithme == "lstm1":
+        form_prediction2 = FormPrediction2(request.POST)
+        form_mois = FormMois(request.POST)
+        display_type = request.POST.get("display_type", None)
+        display_type2 = request.POST.get("display_type2", None)
+        print(display_type)
+        print(display_type2)
+
+        if display_type == "natreg":
+            if display_type2 == "annmen":
+                print("1")
+            else:
+                print("2")
+        else:
+            if display_type2 == "annmen":
+                print("3")
+            else:
+                print("4")
+            """algorithme = "lstm1"
+            if algorithme == "lstm1":
                 erreur = predire_lstm1()
             if algorithme == "lstm4":
                 erreur = predire_lstm4()
             if algorithme == "reseaux des neurones":
                 erreur = predire_reseaux_des_neurones()
             if algorithme == "machine learning":
-                erreur = predire_machine_learning()"""
+                erreur = predire_machine_learning()
             for element in os.listdir(settings.STATIC_URL + 'main/images/predictions/'+algorithme):
-                liste.append('main/images/predictions/'+algorithme+'/' + element)
-            erreur = predire_lstm1()
-        if form_region.is_valid():
+                liste.append('main/images/predictions/'+algorithme+'/' + element)"""
+
+        """if form_region.is_valid():
             region = form_region['region'].value()
-            print("heeeeeey")
-            erreur = predire_region(region)
-            for element in os.listdir(settings.STATIC_URL + 'main/images/predictions/regions/'+region):
-                liste.append('main/images/predictions/regions/'+region+'/' + element)
+            """"""for element in os.listdir(settings.STATIC_URL + 'main/images/predictions/regions/'+region):
+                liste.append('main/images/predictions/regions/'+region+'/' + element)"""
         return render(request,
                       "main/predections.html",
                       {"medecin": medecin,
                        "erreur": erreur,
                        "liste": liste,
                        "form_prediction": form_prediction,
-                       "form_region": form_region})
+                       "form_region": form_region,
+                       "form_prediction2": form_prediction2,
+                       "form_mois": form_mois})
     form_prediction = FormPrediction
     form_region = FormRegion
+    form_prediction2 = FormPrediction2
+    form_mois = FormMois
     return render(request,
                   "main/predections.html",
                   {"medecin": medecin,
                    "liste": liste,
                    "form_prediction": form_prediction,
-                   "form_region": form_region})
+                   "form_region": form_region,
+                   "form_prediction2": form_prediction2,
+                   "form_mois": form_mois})
 
 
 def stats(request):
@@ -406,7 +428,7 @@ def ajout_patient(request):
     medecin = request.user.medecin
     if request.method == "POST":
         print("fghj")
-        form_user = FormUser(request.POST)
+        form_user = FormUserComplet(request.POST)
         form_patient = FormPatient(request.POST)
         if form_user.is_valid():
             print("fghj")
@@ -424,7 +446,7 @@ def ajout_patient(request):
                 patient.save()
                 patient.medecins.add(medecin)
             return redirect("main:acceuil_medecin")
-    form_user = FormUser  # UserCreationForm
+    form_user = FormUserComplet  # UserCreationForm
     form_patient = FormPatient
     return render(request=request,
                   template_name="main/ajout_patient.html",
@@ -479,8 +501,64 @@ def ajout_patient_existant(request):
 
 
 def affichage_patient(request, id):
+    medecin = request.user.medecin
     patient = request.user.medecin.patients.all()[id]
-
+    consultations = patient.consultations.all()
+    for c in consultations:
+        for i in c.symptomes:
+            print(i)
     return render(request=request,
                   template_name="main/affichage_patient.html",
-                  context={"patient": patient})
+                  context={"patient": patient,
+                           "id": id,
+                           "consultations": consultations,
+                           "medecin": medecin})
+
+
+def ajout_consultation(request, id):
+    medecin = Medecin.objects.get(user=request.user)
+    patient = request.user.medecin.patients.all()[id]
+
+    form_consultation = FormConsultation
+    if request.method == 'POST':
+        form_consultation = FormConsultation(request.POST, request.FILES)
+        print("hkk")
+        if form_consultation.is_valid():
+            sypmtomes = []
+            display_type1 = request.POST.get("display_type1", None)
+            display_type2 = request.POST.get("display_type2", None)
+            display_type3 = request.POST.get("display_type3", None)
+            display_type4 = request.POST.get("display_type4", None)
+            display_type5 = request.POST.get("display_type5", None)
+            display_type6 = request.POST.get("display_type6", None)
+            display_type7 = request.POST.get("display_type7", None)
+            display_type8 = request.POST.get("display_type8", None)
+            if display_type1 == "fievre":
+                sypmtomes.append("Fièvre")
+            if display_type2 == "toux":
+                sypmtomes.append("Toux")
+            if display_type3 == "maux_de_tête":
+                sypmtomes.append("Maux de tête")
+            if display_type4 == "fatigue":
+                sypmtomes.append("Fatigue")
+            if display_type5 == "douleurs_musculaires":
+                sypmtomes.append("Douleurs musculaires")
+            if display_type6 == "ecoulement_nasal":
+                sypmtomes.append("Ecoulement nasal")
+            if display_type7 == "congestion_nasale":
+                sypmtomes.append("Congestion nasale")
+            if display_type8 == "frissons":
+                sypmtomes.append("Frissons")
+            consultation = form_consultation.instance
+            consultation.symptomes = sypmtomes
+            consultation.patient = patient
+            now = datetime.datetime.now()
+            consultation.date = now
+            consultation.save()
+            return redirect("main:liste_des_patients")
+
+    return render(request,
+                  "main/ajout_consultation.html",
+                  {"form_consultation": form_consultation,
+                   "patient": patient,
+                   "medecin": medecin})

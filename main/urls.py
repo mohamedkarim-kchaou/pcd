@@ -38,4 +38,5 @@ urlpatterns = [
     path("ajout_patient", views.ajout_patient, name="ajout_patient"),
     path("ajout_patient_existant", views.ajout_patient_existant, name="ajout_patient_existant"),
     path("ajout_csv", views.ajout_csv, name="ajout_csv"),
+    path("affichage_patient/<int:id>/ajout_consultation", views.ajout_consultation, name="ajout_consultation"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
